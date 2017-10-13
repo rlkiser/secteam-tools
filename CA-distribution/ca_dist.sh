@@ -512,7 +512,7 @@ nano upstream/osg-certificates-NEW.source;
 
 #Create a test build on local environment and Koji
 osg-build rpmbuild .; 
-#Tempory step: 
+#step for brach 3.3: 
 osg-build --repo=3.3 rpmbuild .;
 #Create a hidden directory with name ‘globus’
 mkdir /root/.globus
@@ -528,7 +528,7 @@ openssl pkcs12 -in /root/.globus/$USER_CERTIFICATE_AND_KEY -out /root/.globus/us
 
 grid-proxy-init 
 osg-build --scratch koji .
-#temporary step: 
+#step for branch 3.3: 
 osg-build --repo=3.3 --scratch koji .
 echo "Hit Enter to continue, else hit CTRL+c."
 read USERINPUT
@@ -547,10 +547,10 @@ nano upstream/osg-certificates-IGTFNEW.source;
 
 #Create a test build on local environment and Koji
 osg-build rpmbuild .;
-#Tempory step:
+#step for branch 3.3:
 osg-build --repo=3.3 rpmbuild .;
 osg-build --scratch koji .
-#temporary step: 
+#step for brach 3.3: 
 osg-build --repo=3.3 --scratch koji .
 echo "Hit Enter to continue, else hit CTRL+c."
 read USERINPUT
@@ -566,8 +566,40 @@ read USERINPUT
 #Create official builds on Koji for EL6 and EL7
 cd /root/redhat/trunk/
 osg-build koji --el6 osg-ca-certs; osg-build koji --el7 osg-ca-certs; osg-build koji --el6 igtf-ca-certs; osg-build koji --el7 igtf-ca-certs; 
-#temporary step
+
+#----------Steps for osg 3.3--------------
+echo “Performing the steps for OSG repo 3.3”
+
+cd /root/redhat/branches
+svn up .
+cd /root/redhat
+svn up trunk/osg-ca-certs
+svn up trunk/igtf-ca-certs
+
+#To see your latest commit revision number:
+svn log -l 5 trunk/osg-ca-certs
+
+#Find the latest revision number and get all the differences between it and the previous one in SVN.
+#Purpose: to find the difference in `trunk/osg-ca-certs` before and after your change 
+#and merge that change into `branches/osg-3.3/osg-ca-certs` For example, revision 23621 
+#was a copy of osg-ca-certs before your update and 23622 was your update. So, the 
+#difference between 23622 and 23621 encompasses all the changes you made
+
+echo “Enter the latest version since the previous commit”
+read LATESTVERSION
+
+#Get previous version
+$LATESTVERSIONMINUSONE=`expr $LATESTVERSION - 1`
+
+cd /root/redhat/branches/osg-3.3/osg-ca-certs
+svn merge -r${LATESTVERSIONMINUSONE}:${LATESTVERSION} ../../../trunk/osg-ca-certs .
+cd /root/redhat/branches/osg-3.3/igtf-ca-certs
+svn merge -r${LATESTVERSIONMINUSONE}:${LATESTVERSION} ../../../trunk/igtf-ca-certs .
+
+cd /root/redhat/branches/osg-3.3 and create builds
+svn commit -m "OSG certificates distribution $OUR_CERTS_VERSION. (Jira Ticket: $JIRA_TICKET)"
 osg-build koji --el6 --repo=3.3 osg-ca-certs; osg-build koji --el7 --repo=3.3 osg-ca-certs; osg-build koji --el6 --repo=3.3 igtf-ca-certs; osg-build koji --el7 --repo=3.3 igtf-ca-certs;
+
 echo "Hit Enter to continue, else hit CTRL+c."
 read USERINPUT
 
