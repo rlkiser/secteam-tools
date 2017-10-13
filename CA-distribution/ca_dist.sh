@@ -602,6 +602,7 @@ osg-build koji --el6 --repo=3.3 osg-ca-certs; osg-build koji --el7 --repo=3.3 os
 
 echo "Hit Enter to continue, else hit CTRL+c."
 read USERINPUT
+#----------Steps for osg 3.3 are done--------------
 
 #Check in the changes to SVN
 cd /root/redhat/trunk/; 
