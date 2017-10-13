@@ -37,11 +37,13 @@ echo "Dependencies are installed"
 echo "Setting up the environment..."
 echo "Checking the openssl version..."
 OPENSSLVERSION=`openssl version -v`
-if echo "$OPENSSLVERSION" | grep -q "OpenSSL 1.0."; then
+if echo "$OPENSSLVERSION" | grep -q "OpenSSL 1.0."; 
+then
     echo "OpenSSL version is good."
+else
+    echo "OpenSSL version is not good."
+    exit
 fi
-echo "Hit Enter to continue, else hit CTRL+c."
-read USERINPUT
 
 #Define variable for OSG PGP key
 export OSGSECKEYID=7FD42669 
