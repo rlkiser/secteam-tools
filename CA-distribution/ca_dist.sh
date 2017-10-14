@@ -48,9 +48,13 @@ fi
 #Define variable for OSG PGP key
 export OSGSECKEYID=7FD42669 
 echo "verifing the key id value" 
-gpg --list-keys
-echo "Are the keys ok? Hit Enter to continue, else hit CTRL+c"
-read USERINPUT
+if gpg --list-keys | grep -q "security@opensciencegrid.org";
+then 
+    echo "Required key for OSG is present."
+else 
+    echo "Required key for OSG is not present."
+    exit
+fi
 
 #Download, import, and verify the IGTF signing key 
 echo "Downloading the IGTF key..."
