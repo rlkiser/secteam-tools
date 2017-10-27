@@ -38,7 +38,11 @@ yum -y install rpm-build
 yum -y groups install "Development Tools"
 yum -y install ncurses-devel
 
+
 #install dpkg-deb, fakeroot, dpkg-scanpackages, debsigs
+wget http://dl.fedoraproject.org/pub/epel/7/x86_64/f/fakeroot-1.18.4-2.el7.x86_64.rpm
+yum -y install epel-release
+yum -y install fakeroot
 svn co https://vdt.cs.wisc.edu/svn/certs/trunk/vdt-scripts/
 cp vdt-scripts/build-debian-tools builddebiantools.sh
 ./builddebiantools.sh
@@ -47,6 +51,7 @@ echo "Verify that dpkg-deb, fakeroot, dpkg-scanpackages and debsigs are in your 
 which dpkg-deb fakeroot dpkg-scanpackages debsigs
 echo "Hit Enter to continue, else hit CTRL+c."
 read USERINPUT
+
 
 yum -y install dpkg
 yum -y install subversion
