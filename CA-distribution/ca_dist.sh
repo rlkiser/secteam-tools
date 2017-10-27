@@ -1,10 +1,24 @@
 #!/bin/sh
 
-#General notes about the script
-#Make sure you have reliable Internet conection before running this script
-#Run this script as a superuser i.e. as 'root'
-echo "Hit Enter to continue, else hit CTRL+c."
-read USERINPUT
+#--------------------General notes/checks for the script--------------------
+#Make sure you have a reliable Internet conection before running this script
+wget -q --spider http://google.com
+if [ $? -eq 0 ]; 
+then
+    echo "Online"
+else
+    echo "You are offline."
+    echo "Please make sure that you have a reliable Internet connection before running this script."
+    exit
+fi
+
+#Make sure you are running this script as a superuser i.e. as 'root'.
+if [[ $EUID -ne 0 ]];
+then
+   echo "Please run this script as root."
+   exit
+fi
+#--------------------General notes/checks completed--------------------
 
 
 
@@ -59,6 +73,8 @@ else
     exit
 fi
 
+
+
 echo "Verifing the key id value for OSG" 
 if gpg --list-keys | grep -q "security@opensciencegrid.org";
 then 
@@ -67,6 +83,8 @@ else
     echo "Required key for OSG is not present."
     exit
 fi
+
+
 
 #Download, import, and verify the IGTF signing key 
 echo "Downloading the IGTF key..."
@@ -77,8 +95,8 @@ echo "Verifying the keys..."
 gpg --recv-key 3CDBBC71
 gpg --check-sigs 3CDBBC71
 gpg --default-key $OSGSECKEYID --lsign-key 3CDBBC71
-echo "Hit Enter to continue, else hit CTRL+c."
-read USERINPUT
+
+
 
 #Checkout a copy of the svn repository
 echo "Checking out the SVN repository..." 
