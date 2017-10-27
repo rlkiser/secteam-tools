@@ -12,6 +12,7 @@ else
     exit
 fi
 
+
 #Make sure you are running this script as a superuser i.e. as 'root'.
 if [[ $EUID -ne 0 ]];
 then
@@ -31,10 +32,13 @@ export OSGSECKEYID=7FD42669
 
 #--------------------Install dependencies--------------------
 echo "Installing dependencies..."
+yum -y update
+yum -y install svn
 yum -y install rpm-build
+yum -y groups install "Development Tools"
+yum -y install ncurses-devel
 
 #install dpkg-deb, fakeroot, dpkg-scanpackages, debsigs
-yum -y install dpkg-dev
 svn co https://vdt.cs.wisc.edu/svn/certs/trunk/vdt-scripts/
 cp vdt-scripts/build-debian-tools builddebiantools.sh
 ./builddebiantools.sh
@@ -56,6 +60,7 @@ yum -y install yum-plugin-priorities
 yum -y install osg-build
 yum -y install fetch-crl
 
+
 echo "Dependencies are installed"
 #--------------------Installation completed--------------------
 
@@ -74,7 +79,6 @@ else
 fi
 
 
-
 echo "Verifing the key id value for OSG" 
 if gpg --list-keys | grep -q "security@opensciencegrid.org";
 then 
@@ -83,7 +87,6 @@ else
     echo "Required key for OSG is not present."
     exit
 fi
-
 
 
 #Download, import, and verify the IGTF signing key 
@@ -97,12 +100,10 @@ gpg --check-sigs 3CDBBC71
 gpg --default-key $OSGSECKEYID --lsign-key 3CDBBC71
 
 
-
 #Checkout a copy of the svn repository
 echo "Checking out the SVN repository..." 
 svn co https://vdt.cs.wisc.edu/svn/certs
-echo "Hit Enter to continue, else hit CTRL+c."
-read USERINPUT
+
 
 echo "Environment setup is completed."
 #--------------------Environment setup completed--------------------
