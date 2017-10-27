@@ -1,11 +1,19 @@
 #!/bin/sh
 
-#run this script as root
+#General notes about the script
+#Make sure you have reliable Internet conection before running this script
+#Run this script as a superuser i.e. as 'root'
+echo "Hit Enter to continue, else hit CTRL+c."
+read USERINPUT
+
+
+
 #--------------------Variable declaration--------------------
 #Define variable for OSG PGP key
 export OSGSECKEYID=7FD42669
-
 #--------------------Variable declaration completed--------------------
+
+
 
 #--------------------Install dependencies--------------------
 echo "Installing dependencies..."
