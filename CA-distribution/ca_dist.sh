@@ -1,6 +1,12 @@
 #!/bin/sh
 
 #run this script as root
+#--------------------Variable declaration--------------------
+#Define variable for OSG PGP key
+export OSGSECKEYID=7FD42669
+
+#--------------------Variable declaration completed--------------------
+
 #--------------------Install dependencies--------------------
 echo "Installing dependencies..."
 yum -y install rpm-build
@@ -45,9 +51,7 @@ else
     exit
 fi
 
-#Define variable for OSG PGP key
-export OSGSECKEYID=7FD42669 
-echo "verifing the key id value" 
+echo "Verifing the key id value for OSG" 
 if gpg --list-keys | grep -q "security@opensciencegrid.org";
 then 
     echo "Required key for OSG is present."
