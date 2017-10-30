@@ -638,7 +638,7 @@ svn merge -r${LATESTVERSIONMINUSONE}:${LATESTVERSION} ../../../trunk/osg-ca-cert
 cd /root/redhat/branches/osg-3.3/igtf-ca-certs
 svn merge -r${LATESTVERSIONMINUSONE}:${LATESTVERSION} ../../../trunk/igtf-ca-certs .
 
-cd /root/redhat/branches/osg-3.3 and create builds
+cd /root/redhat/branches/osg-3.3
 svn commit -m "OSG certificates distribution $OUR_CERTS_VERSION. (Jira Ticket: $JIRA_TICKET)"
 osg-build koji --el6 --repo=3.3 osg-ca-certs; osg-build koji --el7 --repo=3.3 osg-ca-certs; osg-build koji --el6 --repo=3.3 igtf-ca-certs; osg-build koji --el7 --repo=3.3 igtf-ca-certs;
 
