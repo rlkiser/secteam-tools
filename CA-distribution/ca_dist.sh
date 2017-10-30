@@ -631,7 +631,7 @@ echo “Enter the latest version since the previous commit”
 read LATESTVERSION
 
 #Get previous version
-$LATESTVERSIONMINUSONE=`expr $LATESTVERSION - 1`
+LATESTVERSIONMINUSONE=`expr $LATESTVERSION - 1`
 
 cd /root/redhat/branches/osg-3.3/osg-ca-certs
 svn merge -r${LATESTVERSIONMINUSONE}:${LATESTVERSION} ../../../trunk/osg-ca-certs .
