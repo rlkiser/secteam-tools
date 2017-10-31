@@ -47,14 +47,19 @@ svn co https://vdt.cs.wisc.edu/svn/certs/trunk/vdt-scripts/
 cp vdt-scripts/build-debian-tools builddebiantools.sh
 ./builddebiantools.sh
 source ~/debian-build-tools/setup.sh
-echo "Verify that dpkg-deb, fakeroot, dpkg-scanpackages and debsigs are in your PATH."
+#Verify that dpkg-deb, fakeroot, dpkg-scanpackages and debsigs are in your PATH
 which dpkg-deb fakeroot dpkg-scanpackages debsigs
-echo "Hit Enter to continue, else hit CTRL+c."
-read USERINPUT
+if [ $? -ne 0 ];
+then
+    echo "dpkg-deb, fakeroot, dpkg-scanpackages and debsigs are not in your PATH."
+    exit
+else
+    echo "dpkg-deb, fakeroot, dpkg-scanpackages and debsigs are in your PATH."
+fi
+
 
 
 yum -y install dpkg
-yum -y install subversion
 yum -y install perl
 yum -y install cpan
 yum -y install perl-LWP-Protocol-https
