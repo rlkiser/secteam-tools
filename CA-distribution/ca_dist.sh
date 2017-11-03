@@ -66,7 +66,10 @@ yum -y install perl-LWP-Protocol-https
 yum -y install perl-Sys-Syslog
 cpan install Date::Parse
 yum -y install yum-plugin-priorities
-yum -y install osg-build
+git clone https://github.com/opensciencegrid/osg-build
+cd osg-build/
+PATH=$PATH:`pwd`
+cd ..
 yum -y install fetch-crl
 
 
