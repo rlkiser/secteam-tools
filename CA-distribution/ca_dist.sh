@@ -156,8 +156,13 @@ wget http://dist.eugridpma.info/distribution/igtf/current/igtf-policy-installati
 
 #Verify the PGP signature on the tarball
 gpg --verify igtf-policy-installation-bundle-$IGTF_CERTS_VERSION.tar.gz.asc
-echo "Hit Enter to continue, else hit CTRL+c."
-read USERINPUT
+if [ $? -ne 0 ];
+then
+    echo "PGP signature verification failed."
+    exit
+else
+    echo "Signature is good."
+fi
 
 #Unpack the certificates
 tar xzf igtf-policy-installation-bundle-$IGTF_CERTS_VERSION.tar.gz
