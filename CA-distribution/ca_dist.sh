@@ -36,6 +36,11 @@ export IGTF_CERTS_VERSION
 echo "Enter our IGTF cert version i.e. n.xIGTFNEW:"
 read OUR_CERTS_VERSION
 export OUR_CERTS_VERSION
+
+#Set the previous version of OUR_CERTS_VERSION for IGTF
+echo "What was the previous version of OUR_CERTS_VERSION for IGTF i.e. n.xIGTFNEW?"
+read PREVIOUS_IGTFNEW
+export PREVIOUS_IGTFNEW
 #--------------------Variable declaration completed--------------------
 
 
@@ -171,26 +176,19 @@ tar xzf igtf-policy-installation-bundle-$IGTF_CERTS_VERSION.tar.gz
 cd igtf-policy-installation-bundle-$IGTF_CERTS_VERSION
 ./configure --prefix=$CADIST --with-profile=classic --with-profile=mics --with-profile=slcs --with-profile=iota
 make install
-echo "Hit Enter to continue, else hit CTRL+c."
-read USERINPUT
 
 #Compare differences with previous version
 #Make sure appropriate extra CA files from $CABASEDIR/non-igtf-certificates are included or removed from the distribution directory $CADIST
 cd $CADIST
-echo "What was the previous version of OUR_CERTS_VERSION for IGTF?"
-read PREVIOUS_IGTFNEW
-export PREVIOUS_IGTFNEW
 for ca in * ; do echo $ca; diff $ca $CABASEDIR/$PREVIOUS_IGTFNEW/certificates; done
 for ca in $CABASEDIR/$PREVIOUS_IGTFNEW/certificates/* ; do echo $ca; diff $ca . ; done 
-echo "Hit Enter to continue, else hit CTRL+c."
-read USERINPUT
 
 #Generate the index files 
 cd $CABASEDIR
 OPENSSL_LOCATION=`which openssl`
 ./mk-index.pl --version $OUR_CERTS_VERSION --dir $CADIST --out $CADIST/INDEX --ssl1 $OPENSSL_LOCATION -format 1 --style new
-echo "Hit Enter to continue, else hit CTRL+c."
-read USERINPUT
+TOTAL_CA=$(./mk-index.pl --version $OUR_CERTS_VERSION --dir $CADIST --out $CADIST/INDEX --ssl1 $OPENSSL_LOCATION -format 1 --style new | tail -1)
+export NUMBER_OF_CA=$(echo $TOTAL_CA | grep -o -E '[0-9]+')
 
 #Verify that $CADIST/INDEX.html[.txt] contains the right number of CAs
 #You should agree with the number of CAs listed in $CADIST/INDEX.html and $CADIST/INDEX.txt
