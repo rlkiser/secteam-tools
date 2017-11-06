@@ -26,6 +26,16 @@ fi
 #--------------------Variable declaration--------------------
 #Define variable for OSG PGP key
 export OSGSECKEYID=7FD42669
+
+#Set IGTF_CERTS_VERSION according to the release indicated
+echo "Enter the IGTF cert version according to the release indicated:"
+read IGTF_CERTS_VERSION
+export IGTF_CERTS_VERSION
+
+#Set the OSG certificate distribution version 
+echo "Enter our IGTF cert version i.e. n.xIGTFNEW:"
+read OUR_CERTS_VERSION
+export OUR_CERTS_VERSION
 #--------------------Variable declaration completed--------------------
 
 
@@ -129,20 +139,10 @@ echo "Preparing for IGTFNEW..."
 cd `mktemp -d`
 export CAWORKDIR=`pwd`
 
-#Set $IGTF_CERTS_VERSION according to the release indicated
-echo "Enter the IGTF cert version according to the release indicated:"
-read IGTF_CERTS_VERSION
-export IGTF_CERTS_VERSION
-
 #Checkout or update the OSG svn directories
 cd /certs/trunk/cadist/CA-Certificates-Base
 svn update
 export CABASEDIR=`pwd`
-
-#Set the OSG certificates distribution version 
-echo "Enter our IGTF cert version i.e. n.xIGTFNEW:"
-read OUR_CERTS_VERSION
-export OUR_CERTS_VERSION
 
 #Create a new distribution directory for the release
 cd $CABASEDIR
