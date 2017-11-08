@@ -204,8 +204,6 @@ fi
 cd $CABASEDIR/$OUR_CERTS_VERSION
 ( cd $CADIST; md5sum *.0 *.pem ) > cacerts_md5sum.txt
 cp cacerts_md5sum.txt $CADIST
-echo "Hit Enter to continue, else hit CTRL+c."
-read USERINPUT
 
 #Update the $CADIST/CHANGES file 
 cp $CABASEDIR/$PREVIOUS_IGTFNEW/certificates/CHANGES $CADIST
