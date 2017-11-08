@@ -191,10 +191,14 @@ TOTAL_CA=$(./mk-index.pl --version $OUR_CERTS_VERSION --dir $CADIST --out $CADIS
 export NUMBER_OF_CA=$(echo $TOTAL_CA | grep -o -E '[0-9]+')
 
 #Verify that $CADIST/INDEX.html[.txt] contains the right number of CAs
-#You should agree with the number of CAs listed in $CADIST/INDEX.html and $CADIST/INDEX.txt
-ls $CADIST/*.pem | wc -l 
-echo "Hit Enter to continue, else hit CTRL+c."
-read USERINPUT
+export NUMBER_OF_CA_VERIFY=$(ls $CADIST/*.pem | wc -l)
+if [ "$NUMBER_OF_CA_VERIFY" = "$NUMBER_OF_CA" ];
+then
+    echo "$CADIST/INDEX.html[.txt] contains the right number of CAs."
+else
+    echo "$CADIST/INDEX.html[.txt] doesn't contain the right number of CAs."
+    exit
+fi
 
 #Make the MD5 checksums
 cd $CABASEDIR/$OUR_CERTS_VERSION
