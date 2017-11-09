@@ -388,22 +388,24 @@ fi
 cd $CABASEDIR/$OUR_CERTS_VERSION
 ( cd $CADIST; md5sum *.0 *.pem ) > cacerts_md5sum.txt
 cp cacerts_md5sum.txt $CADIST
-echo "Hit Enter to continue, else hit CTRL+c."
-read USERINPUT
 
 #Update the $CADIST/CHANGES file
 cp $CABASEDIR/$PREVIOUS_NEW/certificates/CHANGES $CADIST
-#Updated step [07/03/17]
 echo "edit $CADIST/CHANGES and remove any temporary editor files like #CHANGES# or CHANGES~"
 nano $CADIST/CHANGES
 echo "Hit Enter to continue, else hit CTRL+c."
 read USERINPUT
 
-#Add new distribution to repository
+#Add new distribution to repository and make sure the permissions are OK i.e. rw- r-- r--
 cd $CADIST; chmod 644 *
-ls -l
-echo "Hit Enter if the permissions are OK i.e. rw- r-- r-- else hit CTRL+c."
-read USER_INPUT
+export PERMISSIONS=$(ls -l *crl_url *info *pem | shuf -n 1)
+if [[ "$PERMISSIONS" =~ "-rw-r--r--" ]];
+then
+    echo "Permissions are correct."
+else
+    echo "Permissions are incorrect."
+    exit
+fi
 cd $CABASEDIR
 svn add $OUR_CERTS_VERSION
 
