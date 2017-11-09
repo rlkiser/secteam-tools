@@ -41,6 +41,11 @@ export OUR_CERTS_VERSION
 echo "What was the previous version of OUR_CERTS_VERSION for IGTF i.e. n.xIGTFNEW?"
 read PREVIOUS_IGTFNEW
 export PREVIOUS_IGTFNEW
+
+#Set the previous version of OUR_CERTS_VERSION for OSG
+echo "What was the previous version of OUR_CERTS_VERSION for OSG?"
+read PREVIOUS_NEW
+export PREVIOUS_NEW
 #--------------------Variable declaration completed--------------------
 
 
@@ -340,8 +345,13 @@ wget http://dist.eugridpma.info/distribution/igtf/current/igtf-policy-installati
 
 #Verify the PGP signature on the tarball
 gpg --verify igtf-policy-installation-bundle-$IGTF_CERTS_VERSION.tar.gz.asc
-echo "Hit Enter to continue, else hit CTRL+c."
-read USERINPUT
+if [ $? -ne 0 ];
+then
+    echo "PGP signature verification failed."
+    exit
+else
+    echo "Signature is good."
+fi
 
 #Unpack the certificates
 tar xzf igtf-policy-installation-bundle-$IGTF_CERTS_VERSION.tar.gz
@@ -350,19 +360,12 @@ tar xzf igtf-policy-installation-bundle-$IGTF_CERTS_VERSION.tar.gz
 cd igtf-policy-installation-bundle-$IGTF_CERTS_VERSION
 ./configure --prefix=$CADIST --with-profile=classic --with-profile=mics --with-profile=slcs --with-profile=iota
 make install
-echo "Hit Enter to continue, else hit CTRL+c."
-read USERINPUT
 
 #Compare differences with previous version
 #Make sure appropriate extra CA files from $CABASEDIR/non-igtf-certificates are included or removed from the distribution directory $CADIST
 cd $CADIST
-echo "What was the previous version of OUR_CERTS_VERSION for OSG?"
-read PREVIOUS_NEW
-export PREVIOUS_NEW
 for ca in * ; do echo $ca; diff $ca $CABASEDIR/$PREVIOUS_NEW/certificates; done
 for ca in $CABASEDIR/$PREVIOUS_NEW/certificates/* ; do echo $ca; diff $ca . ; done
-echo "Hit Enter to continue, else hit CTRL+c."
-read USERINPUT
 
 #Generate the index files
 cd $CABASEDIR
