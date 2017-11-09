@@ -212,11 +212,16 @@ nano $CADIST/CHANGES
 echo "Hit Enter to continue, else hit CTRL+c."
 read USERINPUT
 
-#Add new distribution to repository
+#Add new distribution to repository and make sure the permissions are OK i.e. rw- r-- r--
 cd $CADIST; chmod 644 * 
-ls -l
-echo "Hit Enter if the permissions are OK i.e. rw- r-- r-- else hit CTRL+c."
-read USER_INPUT
+export PERMISSIONS=$(ls -l *crl_url *info *pem | shuf -n 1)
+if [[ "$PERMISSIONS" =~ "-rw-r--r--" ]];
+then
+    echo "Permissions are correct."
+else
+    echo "Permissions are incorrect."
+    exit
+fi
 cd $CABASEDIR
 svn add $OUR_CERTS_VERSION
 
