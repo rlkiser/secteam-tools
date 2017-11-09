@@ -294,10 +294,7 @@ export SVNDIR=$CABASEDIR/../release
 cd $CABASEDIR/$OUR_CERTS_VERSION
 cp osg-certificates-$OUR_CERTS_VERSION.tar.gz osg-certificates-$OUR_CERTS_VERSION.tar.gz.sig osg-ca-certs-$OUR_CERTS_VERSION-0.deb $SVNDIR
 cp ca-certs-version $SVNDIR/ca-certs-version-$OUR_CERTS_VERSION 
-
-#new step [07/05/17]
 cp ca-certs-version $CADIST
-
 cp cacerts_md5sum.txt $SVNDIR/cacerts_md5sum-$OUR_CERTS_VERSION.txt
 
 #Change to the svn release directory
@@ -320,11 +317,6 @@ echo "Preparing for OSG CA i.e. NEW..."
 #Change to an empty working directory and set $CAWORKDIR to the path
 cd `mktemp -d`
 export CAWORKDIR=`pwd`
-
-#Set $IGTF_CERTS_VERSION according to the release indicated
-echo "Enter the IGTF cert version according to the release indicated:"
-read IGTF_CERTS_VERSION
-export IGTF_CERTS_VERSION
 
 #Checkout or update the OSG svn directories
 cd /certs/trunk/cadist/CA-Certificates-Base
