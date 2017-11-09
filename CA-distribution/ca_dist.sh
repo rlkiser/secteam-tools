@@ -291,6 +291,8 @@ cd $CABASEDIR/$OUR_CERTS_VERSION
 ../make-manifest 
 
 #Visually inspect the manifest file (ca-certs-version) #need to fix this
+echo "Visually inspect the manifest file i.e. ca-certs-version and then hit Enter to continue, else hit CTRL+c."
+read USERINPUT
 
 #Set the svn release directory
 export SVNDIR=$CABASEDIR/../release
@@ -471,7 +473,7 @@ cd $CABASEDIR/$OUR_CERTS_VERSION
 ../make-manifest
 
 #Visually inspect the manifest file (ca-certs-version) #need to fix this
-echo "Hit Enter to continue, else hit CTRL+c."
+echo "Visually inspect the manifest file i.e. ca-certs-version and then hit Enter to continue, else hit CTRL+c."
 read USERINPUT
 
 #Set the svn release directory
