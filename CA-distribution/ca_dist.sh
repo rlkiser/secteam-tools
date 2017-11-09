@@ -258,7 +258,6 @@ cd $CABASEDIR/$OUR_CERTS_VERSION
 tar cvfz osg-certificates-$OUR_CERTS_VERSION.tar.gz --exclude .svn certificates 
 
 #Sign it with the security@opensciencegrid.org PGP key
-export OSGSECKEYID=7FD42669 
 #Check both the variables
 echo "Hit Enter if both the variables are correct, else hit CTRL+c."
 echo "i.e. OUR_CERTS_VERSION = $OUR_CERTS_VERSION and OSGSECKEYID = $OSGSECKEYID ?"
