@@ -371,12 +371,18 @@ for ca in $CABASEDIR/$PREVIOUS_NEW/certificates/* ; do echo $ca; diff $ca . ; do
 cd $CABASEDIR
 OPENSSL_LOCATION=`which openssl`
 ./mk-index.pl --version $OUR_CERTS_VERSION --dir $CADIST --out $CADIST/INDEX --ssl1 $OPENSSL_LOCATION -format 1 --style new
+TOTAL_CA=$(./mk-index.pl --version $OUR_CERTS_VERSION --dir $CADIST --out $CADIST/INDEX --ssl1 $OPENSSL_LOCATION -format 1 --style new | tail -1)
+export NUMBER_OF_CA=$(echo $TOTAL_CA | grep -o -E '[0-9]+')
 
 #Verify that $CADIST/INDEX.html[.txt] contains the right number of CAs
-#You should agree with the number of CAs listed in $CADIST/INDEX.html and $CADIST/INDEX.txt
-ls $CADIST/*.pem | wc
-echo "Hit Enter to continue, else hit CTRL+c."
-read USERINPUT
+export NUMBER_OF_CA_VERIFY=$(ls $CADIST/*.pem | wc -l)
+if [ "$NUMBER_OF_CA_VERIFY" = "$NUMBER_OF_CA" ];
+then
+    echo "$CADIST/INDEX.html[.txt] contains the right number of CAs."
+else
+    echo "$CADIST/INDEX.html[.txt] doesn't contain the right number of CAs."
+    exit
+fi
 
 #Make the MD5 checksums
 cd $CABASEDIR/$OUR_CERTS_VERSION
