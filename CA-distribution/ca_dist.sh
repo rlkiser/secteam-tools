@@ -506,8 +506,6 @@ read USERINPUT
 echo "Creating a release using Koji..."
 
 #--------------------Setup/Preparation--------------------
-#Install the Yum priorities package (command only for RHEL 7, CentOS 7, and SL 7) 
-yum -y install yum-plugin-priorities
 #Ensure that /etc/yum.conf has the following line in the [main] section, thereby enabling Yum plugins, including the priorities one: plugins=1
 if grep -q plugins=1 /etc/yum.conf; then
     echo "yum.conf file is good."
