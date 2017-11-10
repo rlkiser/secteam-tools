@@ -46,6 +46,18 @@ export PREVIOUS_IGTFNEW
 echo "What was the previous version of OUR_CERTS_VERSION for OSG?"
 read PREVIOUS_NEW
 export PREVIOUS_NEW
+
+echo "Enter the version number of OSG CA cert i.e. n.nn:"
+read NNN
+export NNN
+
+echo "Enter the version number of IGTF CA cert i.e. m.mm:"
+read MMM
+export MMM
+
+echo "Enter your user name for VDT machine i.e. for library.cs.wisc.edu:"
+read USERNAME_VDT
+export USERNAME_VDT
 #--------------------Variable declaration completed--------------------
 
 
@@ -510,10 +522,9 @@ echo "Creating a release using Koji..."
 if grep -q plugins=1 /etc/yum.conf; then
     echo "yum.conf file is good."
 else
-    echo "Set plugins=1 in yum.conf file." 
+    echo "Set plugins=1 in yum.conf file."
+    exit
 fi
-echo "Hit Enter to continue, else hit CTRL+c."
-read USERINPUT
 
 #Install OSG repositories (command only for RHEL 7, CentOS 7, and SL 7)
 rpm -Uvh https://repo.grid.iu.edu/osg/3.3/osg-3.3-el7-release-latest.rpm
@@ -530,18 +541,12 @@ echo "1. SSH library.cs.wisc.edu;"
 echo "2. mkdir /p/vdt/public/html/upstream/osg-ca-certs/n.nn/;"	
 echo "			     					     where, n.nn = osg-ca-cert version"
 echo "3. mkdir /p/vdt/public/html/upstream/igtf-ca-certs/m.mm;"
-echo "						 	 	     where, m.mm = igtf-ca-cert version"
-echo "Are you done? Hit Enter if yes, else hit CTRL+c."
+echo "						 	 	         where, m.mm = igtf-ca-cert version"
+echo "Hit Enter once you are done."
 read VARIABLES
 
 #Run following command in the same terminal where you did all the previous steps
 cd $SVNDIR
-echo "Enter the version number of OSG CA cert i.e. n.nn:"
-read NNN
-echo "Enter the version number of IGTF CA cert i.e. m.mm:"
-read MMM
-echo "Enter your user name for VDT machine i.e. for library.cs.wisc.edu:"
-read USERNAME_VDT
 scp osg-certificates-${NNN}NEW.tar.gz ${USERNAME_VDT}@library.cs.wisc.edu:/p/vdt/public/html/upstream/osg-ca-certs/$NNN/;
 scp osg-certificates-${NNN}IGTF*.tar.gz ${USERNAME_VDT}@library.cs.wisc.edu:/p/vdt/public/html/upstream/igtf-ca-certs/$MMM/
 
