@@ -12,7 +12,6 @@ else
     exit
 fi
 
-
 #Make sure you are running this script as a superuser i.e. as 'root'.
 if [[ $EUID -ne 0 ]];
 then
@@ -74,7 +73,6 @@ yum -y install rpm-build
 yum -y groups install "Development Tools"
 yum -y install ncurses-devel
 
-
 #install dpkg-deb, fakeroot, dpkg-scanpackages, debsigs
 wget http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/f/fakeroot-1.18.4-2.el7.x86_64.rpm
 yum -y install epel-release
@@ -93,7 +91,6 @@ else
     echo "dpkg-deb, fakeroot, dpkg-scanpackages and debsigs are in your PATH."
 fi
 
-
 yum -y install dpkg
 yum -y install perl
 yum -y install cpan
@@ -107,7 +104,6 @@ cd osg-build/
 PATH=$PATH:`pwd`
 cd ..
 yum -y install fetch-crl
-
 
 echo "Dependencies are installed"
 #--------------------Installation completed--------------------
@@ -126,7 +122,6 @@ else
     exit
 fi
 
-
 echo "Verifing the key id value for OSG" 
 if gpg --list-keys | grep -q "security@opensciencegrid.org";
 then 
@@ -135,7 +130,6 @@ else
     echo "Required key for OSG is not present."
     exit
 fi
-
 
 #Download, import, and verify the IGTF signing key 
 echo "Downloading the IGTF key..."
@@ -147,11 +141,9 @@ gpg --recv-key 3CDBBC71
 gpg --check-sigs 3CDBBC71
 gpg --default-key $OSGSECKEYID --lsign-key 3CDBBC71
 
-
 #Checkout a copy of the svn repository
 echo "Checking out the SVN repository..." 
 svn co https://vdt.cs.wisc.edu/svn/certs
-
 
 echo "Environment setup is completed."
 #--------------------Environment setup completed--------------------
@@ -330,7 +322,6 @@ svn commit -m "OSG certificates distribution $OUR_CERTS_VERSION"
 echo "Process for IGTFNEW is completed."
 echo "Hit Enter to continue, else hit CTRL+c."
 read USERINPUT
-
 #--------------------Process for IGTF CA i.e. IGTFNEW is completed.--------------------
 
 
@@ -512,7 +503,6 @@ svn commit -m "OSG certificates distribution $OUR_CERTS_VERSION"
 echo "Process for OSG CA i.e. NEW is completed."
 echo "Hit Enter to continue, else hit CTRL+c."
 read USERINPUT
-
 #--------------------Process for NEW is completed.--------------------
 #--------------------Processes for multiple caches are completed--------------------
 
