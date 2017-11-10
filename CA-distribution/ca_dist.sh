@@ -483,10 +483,7 @@ export SVNDIR=$CABASEDIR/../release
 cd $CABASEDIR/$OUR_CERTS_VERSION
 cp osg-certificates-$OUR_CERTS_VERSION.tar.gz osg-certificates-$OUR_CERTS_VERSION.tar.gz.sig osg-ca-certs-$OUR_CERTS_VERSION-0.deb $SVNDIR
 cp ca-certs-version $SVNDIR/ca-certs-version-$OUR_CERTS_VERSION
-
-#new step [07/05/17]
 cp ca-certs-version $CADIST
-
 cp cacerts_md5sum.txt $SVNDIR/cacerts_md5sum-$OUR_CERTS_VERSION.txt
 
 #Change to the svn release directory
