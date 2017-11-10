@@ -627,7 +627,7 @@ svn commit -m "OSG certificates distribution $OUR_CERTS_VERSION. (Jira Ticket: $
 cd /root/redhat/trunk/
 osg-build koji --el6 osg-ca-certs; osg-build koji --el7 osg-ca-certs; osg-build koji --el6 igtf-ca-certs; osg-build koji --el7 igtf-ca-certs; 
 
-#----------Steps for branch osg 3.3--------------
+#----------Steps for branch-osg 3.3--------------
 echo “Performing the steps for OSG repo 3.3”
 
 cd /root/redhat/branches
@@ -660,18 +660,12 @@ cd /root/redhat/branches/osg-3.3
 svn commit -m "OSG certificates distribution $OUR_CERTS_VERSION. (Jira Ticket: $JIRA_TICKET)"
 osg-build koji --el6 --repo=3.3 osg-ca-certs; osg-build koji --el7 --repo=3.3 osg-ca-certs; osg-build koji --el6 --repo=3.3 igtf-ca-certs; osg-build koji --el7 --repo=3.3 igtf-ca-certs;
 
-echo "Hit Enter to continue, else hit CTRL+c."
-read USERINPUT
-#----------Steps for osg 3.3 are done--------------
+#----------Steps for branch-osg 3.3 are done--------------
 
 #Check in the changes to SVN
 cd /root/redhat/trunk/; 
 svn commit -m "OSG certificates distribution $OUR_CERTS_VERSION. (Jira Ticket: $JIRA_TICKET)"
-echo "Hit Enter to continue, else hit CTRL+c."
-read USERINPUT
 
 echo "Update the Jira ticket, mention that you have created the builds."
 echo "Before promoting the Koji builds, perform extensive testing." 
-echo "On the fresh SL6 & SL7 VMs, run kojibuild_testing_sl6.sh and kojibuild_testing_sl7.sh respectively."
-echo "Hit Enter once it is done."
-read VARIABLES
+echo "On the fresh SL6 & SL7 VMs, run test-script-SL6-OSG3.3, test-script-SL6-OSG3.4, test-script-SL7-OSG3.3 and test-script-SL7-OSG3.4 respectively."
