@@ -97,13 +97,13 @@ else
 fi
 
 /usr/sbin/fetch-crl
-#if [ $? -eq 0 ];
-#then
-#    echo "Retrieval of CRLs was successful." >> $CWD/testresult
-#else
-#    echo "Retrieval of CRLs failed." >> $CWD/testresult
-#    exit
-#fi
+if [ $? -eq 0 ];
+then
+    echo "Retrieval of CRLs was successful." >> $CWD/testresult
+else
+    echo "Retrieval of CRLs failed." >> $CWD/testresult
+    exit
+fi
 
 #Make sure no files are unreadable
 find /etc/grid-security/certificates \! -perm -a+r -print
@@ -153,13 +153,13 @@ else
 fi
 
 /usr/sbin/fetch-crl
-#if [ $? -eq 0 ];
-#then
-#    echo "Retrieval of CRLs was successful." >> $CWD/testresult
-#else
-#    echo "Retrieval of CRLs failed." >> $CWD/testresult
-#    exit
-#fi
+if [ $? -eq 0 ];
+then
+    echo "Retrieval of CRLs was successful." >> $CWD/testresult
+else
+    echo "Retrieval of CRLs failed." >> $CWD/testresult
+    exit
+fi
 
 #Make sure no files are unreadable
 find /etc/grid-security/certificates \! -perm -a+r -print
