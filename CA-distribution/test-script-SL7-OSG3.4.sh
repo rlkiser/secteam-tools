@@ -59,6 +59,8 @@ yum -y install perl-LWP-Protocol-https
 rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 rpm -Uvh http://repo.grid.iu.edu/osg/3.4/osg-3.4-el7-release-latest.rpm
 
+
+
 #Creating a "testresult" file to store the results of this test script
 > testresult
 echo >> testresult 
