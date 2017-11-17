@@ -37,6 +37,9 @@ export OUR_OSG_VERSION
 echo "Enter our IGTF cert version i.e. n.xIGTFNEW:"
 read OUR_IGTF_VERSION
 export OUR_IGTF_VERSION
+
+#Set the current working directory to store the result of the script 
+export CWD=`pwd`
 #--------------------Variable declaration completed--------------------
 
 
@@ -56,9 +59,20 @@ yum -y install perl-LWP-Protocol-https
 rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 rpm -Uvh http://repo.grid.iu.edu/osg/3.4/osg-3.4-el7-release-latest.rpm
 
+#Creating a "testresult" file to store the results of this test script
+> testresult
+echo >> testresult 
+echo "----------------------------------------" >> testresult
+echo "----------------------------------------" >> testresult
+echo " Test results of test-script-SL7-OSG3.4 " >> testresult
+echo "----------------------------------------" >> testresult
+echo "----------------------------------------" >> testresult
+echo >> testresult
+
 
 
 #--------------------OSG CA certs--------------------
+echo "Results for OSG CA certs:" >> testresult
 yum -y --enablerepo osg-development install osg-ca-certs
 
 #Check the version number in certificates
@@ -67,27 +81,27 @@ cd /etc/grid-security/certificates
 export RANDOM_CERT=$(ls *info | shuf -n 1)
 if cat $RANDOM_CERT | grep -q $IGTF_CERTS_VERSION;
 then
-    echo "IGTF version number is correct."
+    echo "IGTF version number is correct." >> $CWD/testresult
 else
-    echo "IGTF version number is incorrect."
+    echo "IGTF version number is incorrect." >> $CWD/testresult
     exit
 fi
 
 #Open INDEX.txt and verify our OSG version
 if cat INDEX.txt | tail -2 | grep -q $OUR_OSG_VERSION;
 then 
-    echo "Our OSG version is correct."
+    echo "Our OSG version is correct." >> $CWD/testresult
 else
-    echo "Our OSG version is incorrect."
+    echo "Our OSG version is incorrect." >> $CWD/testresult
     exit 
 fi
 
 /usr/sbin/fetch-crl
 if [ $? -eq 0 ];
 then
-    echo "Retrieval of CRLs was successful."
+    echo "Retrieval of CRLs was successful." >> $CWD/testresult
 else 
-    echo "Retrieval of CRLs failed."
+    echo "Retrieval of CRLs failed." >> $CWD/testresult
     exit
 fi  
 
@@ -95,9 +109,9 @@ fi
 find /etc/grid-security/certificates \! -perm -a+r -print
 if [ $? -eq 0 ];
 then
-    echo "All the files are readable."
+    echo "All the files are readable." >> $CWD/testresult
 else 
-    echo "One or more file(s) are unreadable."
+    echo "One or more file(s) are unreadable." >> $CWD/testresult
     exit
 fi
 
@@ -109,12 +123,12 @@ done | sort -nr
 
 #Clean up
 yum -y remove osg-ca-certs
-echo "Hit Enter to continue, else hit CTRL+c."
-read USER_INPUT
 
 
 
 #--------------------IGTF CA certs--------------------
+echo >> $CWD/testresult
+echo "Results for IGTF CA certs:" >> $CWD/testresult
 yum -y --enablerepo osg-development install igtf-ca-certs
 
 #Check the version number in certificates
@@ -123,27 +137,27 @@ cd /etc/grid-security/certificates
 export RANDOM_CERT=$(ls *info | shuf -n 1)
 if cat $RANDOM_CERT | grep -q $IGTF_CERTS_VERSION;
 then
-    echo "IGTF version number is correct."
+    echo "IGTF version number is correct." >> $CWD/testresult
 else
-    echo "IGTF version number is incorrect."
+    echo "IGTF version number is incorrect." >> $CWD/testresult
     exit
 fi
 
 #Open INDEX.txt and verify our IGTF version
 if cat INDEX.txt | tail -2 | grep -q $OUR_IGTF_VERSION;
 then
-    echo "Our IGTF version is correct."
+    echo "Our IGTF version is correct." >> $CWD/testresult
 else
-    echo "Our IGTF version is incorrect."
+    echo "Our IGTF version is incorrect." >> $CWD/testresult
     exit
 fi
 
 /usr/sbin/fetch-crl
 if [ $? -eq 0 ];
 then
-    echo "Retrieval of CRLs was successful."
+    echo "Retrieval of CRLs was successful." >> $CWD/testresult
 else
-    echo "Retrieval of CRLs failed."
+    echo "Retrieval of CRLs failed." >> $CWD/testresult
     exit
 fi
 
@@ -151,9 +165,9 @@ fi
 find /etc/grid-security/certificates \! -perm -a+r -print
 if [ $? -eq 0 ];
 then
-    echo "All the files are readable."
+    echo "All the files are readable." >> $CWD/testresult
 else
-    echo "One or more file(s) are unreadable."
+    echo "One or more file(s) are unreadable." >> $CWD/testresult
     exit
 fi
 
@@ -166,8 +180,6 @@ done | sort -nr
 #Clean up
 yum -y remove igtf-ca-certs
 rm -rf /etc/grid-security/certificates
-echo "Hit Enter to continue, else hit CTRL+c."
-read USER_INPUT
 
 
 
@@ -191,3 +203,8 @@ echo
 
 #Upgrade a RPM Package
 rpm -Uvh http://repo.grid.iu.edu/osg/3.4/osg-3.4-el7-release-latest.rpm
+
+
+
+#Display the test results
+cat $CWD/testresult
