@@ -49,6 +49,7 @@ export CWD=`pwd`
 yum -y update
 
 yum -y install yum-plugin-priorities
+wget http://dl.fedoraproject.org/pub/epel/6/x86_64/Packages/f/fetch-crl-3.0.19-1.el6.noarch.rpm
 yum -y install fetch-crl
 yum -y install 'perl(IO::Socket::SSL)'
 #--------------------Installation completed--------------------
