@@ -38,7 +38,7 @@ echo "Enter our IGTF cert version i.e. n.xIGTFNEW:"
 read OUR_IGTF_VERSION
 export OUR_IGTF_VERSION
 
-#Set the PWD to store the result of the script 
+#Set the current working directory to store the result of the script 
 export CWD=`pwd`
 #--------------------Variable declaration completed--------------------
 
