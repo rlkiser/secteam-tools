@@ -216,6 +216,11 @@ cd $CABASEDIR/$OUR_CERTS_VERSION
 ( cd $CADIST; md5sum *.0 *.pem ) > cacerts_md5sum.txt
 cp cacerts_md5sum.txt $CADIST
 
+#Make the SHA256 checksums
+cd $CABASEDIR/$OUR_CERTS_VERSION
+( cd $CADIST; sha256sum *.0 *.pem ) > cacerts_sha256sum.txt
+cp cacerts_sha256sum.txt $CADIST
+
 #Update the $CADIST/CHANGES file 
 cp $CABASEDIR/$PREVIOUS_IGTFNEW/certificates/CHANGES $CADIST
 echo "edit $CADIST/CHANGES and remove any temporary editor files like #CHANGES# or CHANGES~"
@@ -309,12 +314,13 @@ cp osg-certificates-$OUR_CERTS_VERSION.tar.gz osg-certificates-$OUR_CERTS_VERSIO
 cp ca-certs-version $SVNDIR/ca-certs-version-$OUR_CERTS_VERSION 
 cp ca-certs-version $CADIST
 cp cacerts_md5sum.txt $SVNDIR/cacerts_md5sum-$OUR_CERTS_VERSION.txt
+cp cacerts_sha256sum.txt $SVNDIR/cacerts_sha256sum-$OUR_CERTS_VERSION.txt
 
 #Change to the svn release directory
 cd $SVNDIR
 
 #Commit the files
-svn add osg-certificates-$OUR_CERTS_VERSION.tar.gz osg-certificates-$OUR_CERTS_VERSION.tar.gz.sig osg-ca-certs-$OUR_CERTS_VERSION-0.deb ca-certs-version-$OUR_CERTS_VERSION cacerts_md5sum-$OUR_CERTS_VERSION.txt;
+svn add osg-certificates-$OUR_CERTS_VERSION.tar.gz osg-certificates-$OUR_CERTS_VERSION.tar.gz.sig osg-ca-certs-$OUR_CERTS_VERSION-0.deb ca-certs-version-$OUR_CERTS_VERSION cacerts_md5sum-$OUR_CERTS_VERSION.txt cacerts_sha256sum-$OUR_CERTS_VERSION.txt;
 svn commit -m "OSG certificates distribution $OUR_CERTS_VERSION"
 
 echo "Process for IGTFNEW is completed."
@@ -395,6 +401,11 @@ fi
 cd $CABASEDIR/$OUR_CERTS_VERSION
 ( cd $CADIST; md5sum *.0 *.pem ) > cacerts_md5sum.txt
 cp cacerts_md5sum.txt $CADIST
+
+#Make the SHA256 checksums
+cd $CABASEDIR/$OUR_CERTS_VERSION
+( cd $CADIST; sha256sum *.0 *.pem ) > cacerts_sha256sum.txt
+cp cacerts_sha256sum.txt $CADIST
 
 #Update the $CADIST/CHANGES file
 cp $CABASEDIR/$PREVIOUS_NEW/certificates/CHANGES $CADIST
@@ -490,12 +501,13 @@ cp osg-certificates-$OUR_CERTS_VERSION.tar.gz osg-certificates-$OUR_CERTS_VERSIO
 cp ca-certs-version $SVNDIR/ca-certs-version-$OUR_CERTS_VERSION
 cp ca-certs-version $CADIST
 cp cacerts_md5sum.txt $SVNDIR/cacerts_md5sum-$OUR_CERTS_VERSION.txt
+cp cacerts_sha256sum.txt $SVNDIR/cacerts_sha256sum-$OUR_CERTS_VERSION.txt
 
 #Change to the svn release directory
 cd $SVNDIR
 
 #Commit the files
-svn add osg-certificates-$OUR_CERTS_VERSION.tar.gz osg-certificates-$OUR_CERTS_VERSION.tar.gz.sig osg-ca-certs-$OUR_CERTS_VERSION-0.deb ca-certs-version-$OUR_CERTS_VERSION cacerts_md5sum-$OUR_CERTS_VERSION.txt;
+svn add osg-certificates-$OUR_CERTS_VERSION.tar.gz osg-certificates-$OUR_CERTS_VERSION.tar.gz.sig osg-ca-certs-$OUR_CERTS_VERSION-0.deb ca-certs-version-$OUR_CERTS_VERSION cacerts_md5sum-$OUR_CERTS_VERSION.txt cacerts_sha256sum-$OUR_CERTS_VERSION.txt;
 svn commit -m "OSG certificates distribution $OUR_CERTS_VERSION"
 
 echo "Process for OSG CA i.e. NEW is completed."
