@@ -223,10 +223,10 @@ cp cacerts_sha256sum.txt $CADIST
 
 #Update the $CADIST/CHANGES file 
 cp $CABASEDIR/$PREVIOUS_IGTFNEW/certificates/CHANGES $CADIST
-echo "edit $CADIST/CHANGES and remove any temporary editor files like #CHANGES# or CHANGES~"
-nano $CADIST/CHANGES
+echo "edit CHANGES file and remove any temporary editor files like #CHANGES# or CHANGES~"
 echo "Hit Enter to continue, else hit CTRL+c."
 read USERINPUT
+nano $CADIST/CHANGES
 
 #Add new distribution to repository and make sure the permissions are OK i.e. rw- r-- r--
 cd $CADIST; chmod 644 * 
@@ -274,19 +274,11 @@ cd $CABASEDIR/$OUR_CERTS_VERSION
 tar cvfz osg-certificates-$OUR_CERTS_VERSION.tar.gz --exclude .svn certificates 
 
 #Sign it with the security@opensciencegrid.org PGP key
-#Check both the variables
-echo "Hit Enter if both the variables are correct, else hit CTRL+c."
-echo "i.e. OUR_CERTS_VERSION = $OUR_CERTS_VERSION and OSGSECKEYID = $OSGSECKEYID ?"
-read VARIABLES
 gpg --default-key $OSGSECKEYID -b osg-certificates-$OUR_CERTS_VERSION.tar.gz
 
 
 
 #--------------------Make the DEB--------------------
-echo "Hit Enter if both the variables are correct, else hit CTRL+c."
-echo "i.e. OUR_CERTS_VERSION = $OUR_CERTS_VERSION and IGTF_CERTS_VERSION = $IGTF_CERTS_VERSION ?"
-read VARIABLES
-
 #Make sure CWD is correct
 cd $CABASEDIR/$OUR_CERTS_VERSION
 
@@ -409,10 +401,10 @@ cp cacerts_sha256sum.txt $CADIST
 
 #Update the $CADIST/CHANGES file
 cp $CABASEDIR/$PREVIOUS_NEW/certificates/CHANGES $CADIST
-echo "edit $CADIST/CHANGES and remove any temporary editor files like #CHANGES# or CHANGES~"
-nano $CADIST/CHANGES
+echo "edit CHANGES file and remove any temporary editor files like #CHANGES# or CHANGES~"
 echo "Hit Enter to continue, else hit CTRL+c."
 read USERINPUT
+nano $CADIST/CHANGES
 
 #Add new distribution to repository and make sure the permissions are OK i.e. rw- r-- r--
 cd $CADIST; chmod 644 *
@@ -461,19 +453,11 @@ tar cvfz osg-certificates-$OUR_CERTS_VERSION.tar.gz --exclude .svn certificates
 
 #Sign it with the security@opensciencegrid.org PGP key
 export OSGSECKEYID=7FD42669
-#Check both the variables
-echo "Hit Enter if both the variables are correct, else hit CTRL+c."
-echo "i.e. OUR_CERTS_VERSION = $OUR_CERTS_VERSION and OSGSECKEYID = $OSGSECKEYID ?"
-read VARIABLES
 gpg --default-key $OSGSECKEYID -b osg-certificates-$OUR_CERTS_VERSION.tar.gz
 
 
 
 #--------------------Make the DEB--------------------
-echo "Hit Enter if both the variables are correct, else hit CTRL+c."
-echo "i.e. OUR_CERTS_VERSION = $OUR_CERTS_VERSION and IGTF_CERTS_VERSION = $IGTF_CERTS_VERSION ?"
-read VARIABLES
-
 #Make sure CWD is correct
 cd $CABASEDIR/$OUR_CERTS_VERSION
 
