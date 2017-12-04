@@ -1,5 +1,8 @@
 Changes made to the new version of IGTF: https://dist.igtf.net/distribution/current/CHANGES
 
+# Creating CA Distributions
+This page documents the OSG Security process for creating new Certificate Authority packages for distribution to OSG sites.
+
 # Setup the environment
 1.Get a user certificate + key in pkcs12 format from the OSG CA. [See CertificateUserGet for instructions](https://twiki.grid.iu.edu/bin/view/ReleaseDocumentation/CertificateUserGet).
 
