@@ -288,9 +288,13 @@ cd $CABASEDIR/$OUR_CERTS_VERSION
 #Make the manifest
 ../make-manifest 
 
-#Visually inspect the manifest file (ca-certs-version) #need to fix this
-echo "Visually inspect the manifest file i.e. ca-certs-version and then hit Enter to continue, else hit CTRL+c."
-read USERINPUT
+#Inspect the manifest file (ca-certs-version)
+cat ca-certs-version | grep -q $OUR_CERTS_VERSION
+if [ $? -ne 0 ];
+then
+    echo "Information in ca-certs-version file is incorrect."
+    exit
+fi
 
 #Set the svn release directory
 export SVNDIR=$CABASEDIR/../release
@@ -467,9 +471,13 @@ cd $CABASEDIR/$OUR_CERTS_VERSION
 #Make the manifest
 ../make-manifest
 
-#Visually inspect the manifest file (ca-certs-version) #need to fix this
-echo "Visually inspect the manifest file i.e. ca-certs-version and then hit Enter to continue, else hit CTRL+c."
-read USERINPUT
+#Inspect the manifest file (ca-certs-version)
+cat ca-certs-version | grep -q $OUR_CERTS_VERSION
+if [ $? -ne 0 ];
+then
+    echo "Information in ca-certs-version file is incorrect."
+    exit
+fi
 
 #Set the svn release directory
 export SVNDIR=$CABASEDIR/../release
