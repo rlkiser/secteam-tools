@@ -34,31 +34,25 @@ echo "Enter our IGTF cert version i.e. n.xIGTFNEW:"
 read OUR_CERTS_VERSION
 export OUR_CERTS_VERSION
 
-#Set the previous version of OUR_CERTS_VERSION for IGTF
-echo "What was the previous version of OUR_CERTS_VERSION for IGTF i.e. n.xIGTFNEW?"
-read PREVIOUS_IGTFNEW
-export PREVIOUS_IGTFNEW
-
-#Set the previous version of OUR_CERTS_VERSION for OSG
-echo "What was the previous version of OUR_CERTS_VERSION for OSG?"
-read PREVIOUS_NEW
-export PREVIOUS_NEW
-
-echo "Enter the version number of OSG CA cert i.e. n.nn:"
-read NNN
-export NNN
-
-echo "Enter the version number of IGTF CA cert i.e. m.mm:"
-read MMM
-export MMM
-
 echo "Enter your user name for VDT machine i.e. for library.cs.wisc.edu:"
 read USERNAME_VDT
 export USERNAME_VDT
 
 echo "What is the Jira ticket number i.e. SOFTWARE-XXXX?"
 read JIRA_TICKET
-export JIRA_TICKET 
+export JIRA_TICKET
+
+#Set the version number of OSG CA cert i.e. n.nn
+export NNN=$IGTF_CERTS_VERSION
+
+#Set the version number of IGTF CA cert i.e. m.mm
+export MMM=$(echo $OUR_CERTS_VERSION | grep -o -E '[0-9]+\.[0-9]+')
+
+#Set the previous version of OUR_CERTS_VERSION for IGTF
+export PREVIOUS_IGTFNEW=`echo "$MMM - 0.01" | bc -l`IGTFNEW
+
+#Set the previous version of OUR_CERTS_VERSION for OSG
+export PREVIOUS_NEW=`echo "$MMM - 0.01" | bc -l`NEW
 #--------------------Variable declaration completed--------------------
 
 
@@ -102,6 +96,7 @@ cd osg-build/
 PATH=$PATH:`pwd`
 cd ..
 yum -y install fetch-crl
+yum -y install bc
 
 echo "Dependencies are installed"
 #--------------------Installation completed--------------------
