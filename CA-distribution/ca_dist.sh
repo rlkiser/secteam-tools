@@ -332,9 +332,7 @@ svn update
 export CABASEDIR=`pwd`
 
 #Set the OSG certificates distribution version
-echo "Enter our OSG cert version i.e. n.xNEW:"
-read OUR_CERTS_VERSION
-export OUR_CERTS_VERSION
+export OUR_CERTS_VERSION=${MMM}NEW
 
 #Create a new distribution directory for the release
 cd $CABASEDIR
