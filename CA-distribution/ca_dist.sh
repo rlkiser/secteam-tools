@@ -315,8 +315,7 @@ svn add osg-certificates-$OUR_CERTS_VERSION.tar.gz osg-certificates-$OUR_CERTS_V
 svn commit -m "OSG certificates distribution $OUR_CERTS_VERSION"
 
 echo "Process for IGTFNEW is completed."
-echo "Hit Enter to continue, else hit CTRL+c."
-read USERINPUT
+sleep 5
 #--------------------Process for IGTF CA i.e. IGTFNEW is completed.--------------------
 
 
@@ -498,8 +497,7 @@ svn add osg-certificates-$OUR_CERTS_VERSION.tar.gz osg-certificates-$OUR_CERTS_V
 svn commit -m "OSG certificates distribution $OUR_CERTS_VERSION"
 
 echo "Process for OSG CA i.e. NEW is completed."
-echo "Hit Enter to continue, else hit CTRL+c."
-read USERINPUT
+sleep 5
 #--------------------Process for NEW is completed.--------------------
 #--------------------Processes for multiple caches are completed--------------------
 
