@@ -525,17 +525,17 @@ svn co https://vdt.cs.wisc.edu/svn/native/redhat
 #Copy the tar balls to VDT upsteam machine
 echo "Perform the following 3 steps on VDT machine i.e. on library.cs.wisc.edu."
 echo "1. SSH library.cs.wisc.edu;"
-echo "2. mkdir /p/vdt/public/html/upstream/osg-ca-certs/n.nn/;"	
-echo "			     					     where, n.nn = osg-ca-cert version"
-echo "3. mkdir /p/vdt/public/html/upstream/igtf-ca-certs/m.mm;"
-echo "						 	 	         where, m.mm = igtf-ca-cert version"
+echo "2. mkdir /p/vdt/public/html/upstream/osg-ca-certs/m.mm/;"	
+echo "			     					     where, m.mm = osg-ca-cert version"
+echo "3. mkdir /p/vdt/public/html/upstream/igtf-ca-certs/n.nn;"
+echo "						 	 	         where, n.nn = igtf-ca-cert version"
 echo "Hit Enter once you are done."
 read VARIABLES
 
 #Run following command in the same terminal where you did all the previous steps
 cd $SVNDIR
-scp osg-certificates-${NNN}NEW.tar.gz ${USERNAME_VDT}@library.cs.wisc.edu:/p/vdt/public/html/upstream/osg-ca-certs/$NNN/;
-scp osg-certificates-${NNN}IGTF*.tar.gz ${USERNAME_VDT}@library.cs.wisc.edu:/p/vdt/public/html/upstream/igtf-ca-certs/$MMM/
+scp osg-certificates-${MMM}NEW.tar.gz ${USERNAME_VDT}@library.cs.wisc.edu:/p/vdt/public/html/upstream/osg-ca-certs/$MMM/;
+scp osg-certificates-${MMM}IGTF*.tar.gz ${USERNAME_VDT}@library.cs.wisc.edu:/p/vdt/public/html/upstream/igtf-ca-certs/$NNN/
 
 #Do svn update  
 cd /root/redhat/trunk/; 
@@ -548,11 +548,11 @@ svn update;
 
 #----------For osg-ca-certs----------
 cd osg-ca-certs;   
-echo "Edit Version to n.nn; release to 1; edit Source0 to osg-certificates-n.nnNEW.tar.gz; and add appropriate entry to changelog"
+echo "Edit Version to m.mm; release to 1; edit Source0 to osg-certificates-m.mmNEW.tar.gz; and add appropriate entry to changelog"
 echo "Hit Enter to continue, else hit CTRL+c."
 read VARIABLES
 nano osg/osg-ca-certs.spec
-echo "Update location to osg-ca-certs/n.nn/osg-certificates-n.nnNEW.tar.gz"
+echo "Update location to osg-ca-certs/m.mm/osg-certificates-m.mmNEW.tar.gz"
 echo "Hit Enter to continue, else hit CTRL+c."
 read VARIABLES
 nano upstream/osg-certificates-NEW.source;
@@ -583,11 +583,11 @@ osg-build --repo=3.3 --scratch koji .
 #----------For igtf-ca-certs----------
 cd .. 
 cd igtf-ca-certs
-echo "Edit Version to m.mm; edit release to 1; edit Source0 to osg-certificates-n.nnIGTFNEW.tar.gz; and add appropriate entry to changelog"
+echo "Edit Version to n.nn; edit release to 1; edit Source0 to osg-certificates-m.mmIGTFNEW.tar.gz; and add appropriate entry to changelog"
 echo "Hit Enter to continue, else hit CTRL+c."
 read VARIABLES
 nano osg/igtf-ca-certs.spec 
-echo "Update location to igtf-ca-certs/m.mm/osg-certificates-n.nnIGTFNEW.tar.gz;"
+echo "Update location to igtf-ca-certs/n.nn/osg-certificates-m.mmIGTFNEW.tar.gz;"
 echo "Hit Enter to continue, else hit CTRL+c."
 read VARIABLES
 nano upstream/osg-certificates-IGTFNEW.source; 
