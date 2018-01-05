@@ -42,10 +42,10 @@ echo "What is the Jira ticket number i.e. SOFTWARE-XXXX?"
 read JIRA_TICKET
 export JIRA_TICKET
 
-#Set the version number of OSG CA cert i.e. n.nn
+#Set the version number of our IGTF CA cert i.e. n.nn
 export NNN=$IGTF_CERTS_VERSION
 
-#Set the version number of IGTF CA cert i.e. m.mm
+#Set the version number of our OSG CA cert i.e. m.mm
 export MMM=$(echo $OUR_CERTS_VERSION | grep -o -E '[0-9]+\.[0-9]+')
 
 #Set the previous version of OUR_CERTS_VERSION for IGTF
