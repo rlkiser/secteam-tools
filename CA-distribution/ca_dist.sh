@@ -523,7 +523,7 @@ svn co https://vdt.cs.wisc.edu/svn/native/redhat
 
 #--------------------Building RPM packages--------------------
 #Copy the tar balls to VDT upstream machine (library.cs.wisc.edu)
-gnome-terminal -x ssh ${USERNAME_VDT}@library.cs.wisc.edu "mkdir /p/vdt/public/html/upstream/osg-ca-certs/$MMM/; mkdir /p/vdt/public/html/upstream/igtf-ca-certs/$NNN;"
+ssh ${USERNAME_VDT}@library.cs.wisc.edu "mkdir /p/vdt/public/html/upstream/osg-ca-certs/$MMM/; mkdir /p/vdt/public/html/upstream/igtf-ca-certs/$NNN"
 
 #Run following command in the same terminal where you did all the previous steps
 cd $SVNDIR
