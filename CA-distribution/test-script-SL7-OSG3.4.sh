@@ -83,37 +83,37 @@ cd /etc/grid-security/certificates
 export RANDOM_CERT=$(ls *info | shuf -n 1)
 if cat $RANDOM_CERT | grep -q $IGTF_CERTS_VERSION;
 then
-    echo "IGTF version number is correct." >> $CWD/testresult
+    echo "-> IGTF version number is correct." >> $CWD/testresult
 else
-    echo "IGTF version number is incorrect." >> $CWD/testresult
+    echo "-> IGTF version number is incorrect." >> $CWD/testresult
     exit
 fi
 
 #Open INDEX.txt and verify our OSG version
 if cat INDEX.txt | tail -2 | grep -q $OUR_OSG_VERSION;
 then 
-    echo "Our OSG version is correct." >> $CWD/testresult
+    echo "-> Our OSG version is correct." >> $CWD/testresult
 else
-    echo "Our OSG version is incorrect." >> $CWD/testresult
+    echo "-> Our OSG version is incorrect." >> $CWD/testresult
     exit 
 fi
 
 /usr/sbin/fetch-crl
 if [ $? -eq 0 ];
 then
-    echo "Retrieval of CRLs was successful." >> $CWD/testresult
+    echo "-> Retrieval of CRLs was successful." >> $CWD/testresult
 else 
-    echo "Retrieval of CRLs failed." >> $CWD/testresult
-    exit
+    echo "-> Retrieval of CRLs failed." >> $CWD/testresult
+    /usr/sbin/fetch-crl >> $CWD/testresult 
 fi  
 
 #Make sure no files are unreadable
 find /etc/grid-security/certificates \! -perm -a+r -print
 if [ $? -eq 0 ];
 then
-    echo "All the files are readable." >> $CWD/testresult
+    echo "-> All the files are readable." >> $CWD/testresult
 else 
-    echo "One or more file(s) are unreadable." >> $CWD/testresult
+    echo "-> One or more file(s) are unreadable." >> $CWD/testresult
     exit
 fi
 
@@ -139,37 +139,37 @@ cd /etc/grid-security/certificates
 export RANDOM_CERT=$(ls *info | shuf -n 1)
 if cat $RANDOM_CERT | grep -q $IGTF_CERTS_VERSION;
 then
-    echo "IGTF version number is correct." >> $CWD/testresult
+    echo "-> IGTF version number is correct." >> $CWD/testresult
 else
-    echo "IGTF version number is incorrect." >> $CWD/testresult
+    echo "-> IGTF version number is incorrect." >> $CWD/testresult
     exit
 fi
 
 #Open INDEX.txt and verify our IGTF version
 if cat INDEX.txt | tail -2 | grep -q $OUR_IGTF_VERSION;
 then
-    echo "Our IGTF version is correct." >> $CWD/testresult
+    echo "-> Our IGTF version is correct." >> $CWD/testresult
 else
-    echo "Our IGTF version is incorrect." >> $CWD/testresult
+    echo "-> Our IGTF version is incorrect." >> $CWD/testresult
     exit
 fi
 
 /usr/sbin/fetch-crl
 if [ $? -eq 0 ];
 then
-    echo "Retrieval of CRLs was successful." >> $CWD/testresult
+    echo "-> Retrieval of CRLs was successful." >> $CWD/testresult
 else
-    echo "Retrieval of CRLs failed." >> $CWD/testresult
-    exit
+    echo "-> Retrieval of CRLs failed." >> $CWD/testresult
+    /usr/sbin/fetch-crl >> $CWD/testresult
 fi
 
 #Make sure no files are unreadable
 find /etc/grid-security/certificates \! -perm -a+r -print
 if [ $? -eq 0 ];
 then
-    echo "All the files are readable." >> $CWD/testresult
+    echo "-> All the files are readable." >> $CWD/testresult
 else
-    echo "One or more file(s) are unreadable." >> $CWD/testresult
+    echo "-> One or more file(s) are unreadable." >> $CWD/testresult
     exit
 fi
 
