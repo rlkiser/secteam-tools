@@ -641,7 +641,24 @@ osg-build koji --el6 --repo=3.3 osg-ca-certs; osg-build koji --el7 --repo=3.3 os
 #Check in the changes to SVN
 cd /root/redhat/trunk/; 
 svn commit -m "OSG certificates distribution $OUR_CERTS_VERSION. (Jira Ticket: $JIRA_TICKET)"
+echo "Update the Jira ticket by mentioning that you have created the builds."
 
-echo "Update the Jira ticket, mention that you have created the builds."
-echo "Before promoting the Koji builds, perform extensive testing." 
+
+
+#Test the new builds
+echo "Perform extensive testing." 
 echo "On the fresh SL6 & SL7 VMs, run test-script-SL6-OSG3.3, test-script-SL6-OSG3.4, test-script-SL7-OSG3.3 and test-script-SL7-OSG3.4 respectively."
+echo "Update the Jira ticket by mentioning that you are done with the testing."
+echo "Hit Enter once the testing is done."
+read VARIABLES
+
+
+
+#Promote the Koji builds to osg-testing repository
+#Release EL6 and EL7 builds for testing
+cd /root/redhat/trunk/;
+grid-proxy-init
+osg-promote osg-ca-certs igtf-ca-certs
+osg-promote -r 3.3-testing osg-ca-certs igtf-ca-certs 
+echo "Update the Jira ticket and change the workflow from open/in progress -> Ready for Testing"
+
