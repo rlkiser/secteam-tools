@@ -574,8 +574,7 @@ osg-build --repo=3.3 --scratch koji .
 #--------------------
 
 #----------For igtf-ca-certs----------
-cd .. 
-cd igtf-ca-certs
+cd ../igtf-ca-certs
 echo "Edit Version to n.nn; edit release to 1; edit Source0 to osg-certificates-m.mmIGTFNEW.tar.gz; and add appropriate entry to changelog"
 echo "Hit Enter to continue, else hit CTRL+c."
 read VARIABLES
