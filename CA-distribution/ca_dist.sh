@@ -557,15 +557,22 @@ osg-build --repo=3.3 rpmbuild .;
 
 #Create a hidden directory with name ‘globus’
 mkdir /root/.globus
-echo "Export the OSG user certificate (.p12) from your local system and import it in this system and store in '/root/.globus' directory."
-echo "Hit Enter once it is done, else hit CTRL+c."
-read VARIABLES
-echo "What is the name of a OSG user certificate (.p12) file?"
-read USER_CERTIFICATE_AND_KEY
-#Convert user certificate (.p12) file into userkey.pem file without the certificate
-openssl pkcs12 -in /root/.globus/$USER_CERTIFICATE_AND_KEY -out /root/.globus/userkey.pem -nodes -nocerts
-#Convert user certificate (.p12) file into usercert.pem file without the key
-openssl pkcs12 -in /root/.globus/$USER_CERTIFICATE_AND_KEY -out /root/.globus/usercert.pem -nodes -nokeys
+
+echo "Have you already converted your user certificate (.p12) file into userkey.pem file (without the certificate) and into usercert.pem file (without the key)?"
+read -p "Enter yes or no..." CONVERTED
+if [ "$CONVERTED" = "no" ];
+then
+    echo "Export the OSG user certificate (.p12) from your local system and import it in this system and store in '/root/.globus' directory."
+    echo "Hit Enter once it is done, else hit CTRL+c."
+    read VARIABLES
+    echo "What is the name of a OSG user certificate (.p12) file?"
+    read USER_CERTIFICATE_AND_KEY
+    #Convert user certificate (.p12) file into userkey.pem file without the certificate
+    openssl pkcs12 -in /root/.globus/$USER_CERTIFICATE_AND_KEY -out /root/.globus/userkey.pem -nodes -nocerts
+    chmod 600 /root/.globus/userkey.pem
+    #Convert user certificate (.p12) file into usercert.pem file without the key
+    openssl pkcs12 -in /root/.globus/$USER_CERTIFICATE_AND_KEY -out /root/.globus/usercert.pem -nodes -nokeys
+fi
 
 grid-proxy-init 
 osg-build --scratch koji .
