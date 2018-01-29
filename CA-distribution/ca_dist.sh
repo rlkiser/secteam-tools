@@ -603,7 +603,7 @@ osg-build --repo=3.3 --scratch koji .
 
 #Check in the changes to SVN 
 cd /root/redhat/trunk/; 
-svn commit -m "OSG certificates distribution $OUR_CERTS_VERSION. (Jira Ticket: $JIRA_TICKET)"
+svn commit -m "Test builds-OSG certificates distribution $OUR_CERTS_VERSION. (Jira Ticket: $JIRA_TICKET)"
 
 #Create official builds on Koji for EL6 and EL7
 cd /root/redhat/trunk/
@@ -639,7 +639,7 @@ cd /root/redhat/branches/osg-3.3/igtf-ca-certs
 svn merge -r${LATESTCOMMITMINUSONE}:${LATESTCOMMIT} ../../../trunk/igtf-ca-certs .
 
 cd /root/redhat/branches/osg-3.3
-svn commit -m "OSG certificates distribution $OUR_CERTS_VERSION. (Jira Ticket: $JIRA_TICKET)"
+svn commit -m "Official builds-OSG certificates distribution $OUR_CERTS_VERSION. (Jira Ticket: $JIRA_TICKET)"
 osg-build koji --el6 --repo=3.3 osg-ca-certs; osg-build koji --el7 --repo=3.3 osg-ca-certs; osg-build koji --el6 --repo=3.3 igtf-ca-certs; osg-build koji --el7 --repo=3.3 igtf-ca-certs;
 
 #----------Steps for branch-osg 3.3 are done--------------
