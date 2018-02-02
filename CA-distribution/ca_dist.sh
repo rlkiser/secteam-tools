@@ -651,6 +651,50 @@ echo "Update the Jira ticket by mentioning that you have created the builds."
 
 
 
+#Verify MD5 and SHA256 hash of new OSG tarballs
+cd /certs/trunk/cadist/CA-Certificates-Base/${MMM}NEW/
+
+MD5SUM_NEW=`md5sum osg-certificates-${MMM}NEW.tar.gz | awk '{print $1}'`
+if cat ca-certs-version | grep -q $MD5SUM_NEW;
+then
+    echo "MD5 hash for osg-certificates-${MMM}NEW.tar.gz is correct."
+else
+    echo "MD5 hash for osg-certificates-${MMM}NEW.tar.gz is incorrect."
+    exit
+fi
+
+SHA256SUM_NEW=`sha256sum osg-certificates-${MMM}NEW.tar.gz | awk '{print $1}'`
+if cat ca-certs-version | grep -q $SHA256SUM_NEW;
+then
+    echo "SHA256 hash for osg-certificates-${MMM}NEW.tar.gz is correct."
+else
+    echo "SHA256 hash for osg-certificates-${MMM}NEW.tar.gz is incorrect."
+    exit
+fi
+
+#Verify MD5 and SHA256 hash of new IGTF tarballs
+cd /certs/trunk/cadist/CA-Certificates-Base/${MMM}IGTFNEW
+
+MD5SUM_IGTFNEW=`md5sum osg-certificates-${MMM}IGTFNEW.tar.gz | awk '{print $1}'`
+if cat ca-certs-version | grep -q $MD5SUM_IGTFNEW;
+then
+    echo "MD5 hash for osg-certificates-${MMM}IGTFNEW.tar.gz is correct."
+else
+    echo "MD5 hash for osg-certificates-${MMM}IGTFNEW.tar.gz is incorrect."
+    exit
+fi
+
+SHA256SUM_IGTFNEW=`sha256sum osg-certificates-${MMM}IGTFNEW.tar.gz | awk '{print $1}'`
+if cat ca-certs-version | grep -q $SHA256SUM_IGTFNEW;
+then
+    echo "SHA256 hash for osg-certificates-${MMM}IGTFNEW.tar.gz is correct."
+else
+    echo "SHA256 hash for osg-certificates-${MMM}IGTFNEW.tar.gz is incorrect."
+    exit
+fi
+
+
+
 #Test the new builds
 echo "Perform extensive testing." 
 echo "On the fresh SL6 & SL7 VMs, run test-script-SL6-OSG3.3, test-script-SL6-OSG3.4, test-script-SL7-OSG3.3 and test-script-SL7-OSG3.4 respectively."
