@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #--------------------General notes/checks for the script--------------------
 #Make sure you have a reliable Internet conection before running this script
