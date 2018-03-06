@@ -608,7 +608,10 @@ svn commit -m "Test builds-OSG certificates distribution $OUR_CERTS_VERSION. (Ji
 
 #Create official builds on Koji for EL6 and EL7
 cd /root/redhat/trunk/
-osg-build koji --el6 osg-ca-certs; osg-build koji --el7 osg-ca-certs; osg-build koji --el6 igtf-ca-certs; osg-build koji --el7 igtf-ca-certs; 
+osg-build koji --el6 osg-ca-certs
+osg-build koji --el7 osg-ca-certs
+osg-build koji --el6 igtf-ca-certs
+osg-build koji --el7 igtf-ca-certs
 
 #----------Steps for branch-osg 3.3--------------
 echo "Performing the steps for OSG repo 3.3"
@@ -641,7 +644,10 @@ svn merge -r${LATESTCOMMITMINUSONE}:${LATESTCOMMIT} ../../../trunk/igtf-ca-certs
 
 cd /root/redhat/branches/osg-3.3
 svn commit -m "Official builds-OSG certificates distribution $OUR_CERTS_VERSION. (Jira Ticket: $JIRA_TICKET)"
-osg-build koji --el6 --repo=3.3 osg-ca-certs; osg-build koji --el7 --repo=3.3 osg-ca-certs; osg-build koji --el6 --repo=3.3 igtf-ca-certs; osg-build koji --el7 --repo=3.3 igtf-ca-certs;
+osg-build koji --el6 --repo=3.3 osg-ca-certs
+osg-build koji --el7 --repo=3.3 osg-ca-certs
+osg-build koji --el6 --repo=3.3 igtf-ca-certs
+osg-build koji --el7 --repo=3.3 igtf-ca-certs
 
 #----------Steps for branch-osg 3.3 are done--------------
 
