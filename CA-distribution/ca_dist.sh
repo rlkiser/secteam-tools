@@ -225,14 +225,13 @@ read USERINPUT
 nano "$CADIST/CHANGES"
 
 #Add new distribution to repository and make sure the permissions are OK i.e. rw- r-- r--
-cd "$CADIST"; chmod 644 *
-export PERMISSIONS=$(ls -l *crl_url *info *pem | shuf -n 1)
-if [[ "$PERMISSIONS" =~ "-rw-r--r--" ]];
+cd "$CADIST"
+if chmod 644 *
 then
-    echo "Permissions are correct."
+    echo "Permissions successfully set."
 else
-    echo "Permissions are incorrect."
-    exit
+    echo "Failed to set permissions."
+    exit 1
 fi
 cd "$CABASEDIR"
 svn add "$OUR_CERTS_VERSION"
