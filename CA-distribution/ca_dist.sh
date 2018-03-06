@@ -611,7 +611,7 @@ cd /root/redhat/trunk/
 osg-build koji --el6 osg-ca-certs; osg-build koji --el7 osg-ca-certs; osg-build koji --el6 igtf-ca-certs; osg-build koji --el7 igtf-ca-certs; 
 
 #----------Steps for branch-osg 3.3--------------
-echo “Performing the steps for OSG repo 3.3”
+echo "Performing the steps for OSG repo 3.3"
 
 cd /root/redhat/branches
 svn up .
@@ -624,11 +624,11 @@ svn log -l 5 trunk/osg-ca-certs
 
 #Find the latest revision number and get all the differences between it and the previous one in the SVN.
 #Purpose: to find the difference in `trunk/osg-ca-certs` before and after your change 
-#and merge that change into `branches/osg-3.3/osg-ca-certs` For example, revision 23621 
+#and merge that change into `branches/osg-3.3/osg-ca-certs` For example, revision 23621
 #was a copy of osg-ca-certs before your update and 23622 was your update. So, the 
 #difference between 23622 and 23621 encompasses all the changes you made
 
-echo “Enter the latest version since the previous commit”
+echo "Enter the latest version since the previous commit"
 read LATESTCOMMIT
 
 #Get previous version
