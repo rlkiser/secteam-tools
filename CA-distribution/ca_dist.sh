@@ -92,9 +92,7 @@ yum -y install perl-Sys-Syslog
 cpan install Date::Parse
 yum -y install yum-plugin-priorities
 git clone https://github.com/opensciencegrid/osg-build
-cd osg-build/
-PATH=$PATH:`pwd`
-cd ..
+PATH=$PATH:$PWD/osg-build
 yum -y install fetch-crl
 yum -y install bc
 
@@ -147,16 +145,14 @@ echo "Environment setup is completed."
 #--------------------Process for IGTF CA i.e. IGTFNEW--------------------
 echo "Preparing for IGTFNEW..."
 #Change to an empty working directory and set $CAWORKDIR to the path
-cd `mktemp -d`
-export CAWORKDIR=`pwd`
+export CAWORKDIR=`mktemp -d`
 
 #Checkout or update the OSG svn directories
 cd /certs/trunk/cadist/CA-Certificates-Base
 svn update
-export CABASEDIR=`pwd`
+export CABASEDIR=$PWD
 
 #Create a new distribution directory for the release
-cd $CABASEDIR
 mkdir -p "$OUR_CERTS_VERSION/certificates"
 export CADIST=$CABASEDIR/$OUR_CERTS_VERSION/certificates
 
