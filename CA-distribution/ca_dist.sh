@@ -197,7 +197,8 @@ TOTAL_CA=$(./mk-index.pl --version "$OUR_CERTS_VERSION" --dir "$CADIST" --out "$
 export NUMBER_OF_CA=$(echo "$TOTAL_CA" | grep -o -E '[0-9]+')
 
 #Verify that $CADIST/INDEX.html[.txt] contains the right number of CAs
-export NUMBER_OF_CA_VERIFY=$(ls $CADIST/*.pem | wc -l)
+CADIST_PEMS=( "$CADIST"/*.pem )
+export NUMBER_OF_CA_VERIFY=${#CADIST_PEMS[@]}
 if [ "$NUMBER_OF_CA_VERIFY" = "$NUMBER_OF_CA" ];
 then
     echo "$CADIST/INDEX.html[.txt] contains the right number of CAs."
