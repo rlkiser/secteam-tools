@@ -27,20 +27,44 @@ export OSGSECKEYID=7FD42669
 #Set IGTF_CERTS_VERSION according to the release indicated
 echo "Enter the IGTF cert version according to the release indicated:"
 read IGTF_CERTS_VERSION
-export IGTF_CERTS_VERSION
+if [[ $IGTF_CERTS_VERSION =~ ^[0-9.]+$ ]];
+then
+    export IGTF_CERTS_VERSION
+else
+    echo "Please enter a valid IGTF cert version."
+    exit
+fi
 
 #Set the OSG certificate distribution version 
 echo "Enter our IGTF cert version i.e. n.xIGTFNEW:"
 read OUR_CERTS_VERSION
-export OUR_CERTS_VERSION
+if [[ $OUR_CERTS_VERSION =~ ^[0-9]+[.][0-9]+(IGTFNEW)$ ]];
+then
+    export OUR_CERTS_VERSION
+else
+    echo "Please enter a valid our IGTF cert version i.e. n.xIGTFNEW."
+    exit
+fi
 
 echo "Enter your user name for VDT machine i.e. for library.cs.wisc.edu:"
 read USERNAME_VDT
-export USERNAME_VDT
+if [[ $USERNAME_VDT =~ ^[a-z.0-9]+$ ]];
+then
+    export USERNAME_VDT
+else
+    echo "Please enter a valid user name for VDT machine i.e. for library.cs.wisc.edu."
+    exit
+fi
 
 echo "What is the Jira ticket number i.e. SOFTWARE-XXXX?"
 read JIRA_TICKET
-export JIRA_TICKET
+if [[ $JIRA_TICKET =~ ^(SOFTWARE)[-][0-9]+$ ]];
+then
+    export JIRA_TICKET
+else
+    echo "Please enter a valid Jira ticket number i.e. SOFTWARE-XXXX."
+    exit
+fi
 
 #Set the variable n.nn
 export NNN=$IGTF_CERTS_VERSION
