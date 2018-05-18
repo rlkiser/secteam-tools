@@ -394,6 +394,10 @@ cd igtf-policy-installation-bundle-$IGTF_CERTS_VERSION
 ./configure --prefix=$CADIST --with-profile=classic --with-profile=mics --with-profile=slcs --with-profile=iota
 make install
 
+#Install the non-IGTF CAs
+echo "Install the non-IGTF CAs. Once done, Hit Enter to continue, else hit CTRL+c."
+read VARIABLES
+
 #Compare differences with previous version
 #Make sure appropriate extra CA files from $CABASEDIR/non-igtf-certificates are included or removed from the distribution directory $CADIST
 cd $CADIST
