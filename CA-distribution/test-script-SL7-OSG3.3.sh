@@ -57,7 +57,7 @@ yum -y install perl-LWP-Protocol-https
 
 #Upgrade the packages
 rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-rpm -Uvh http://repo.grid.iu.edu/osg/3.3/osg-3.3-el7-release-latest.rpm
+rpm -Uvh http://repo.opensciencegrid.org/osg/3.3/osg-3.3-el7-release-latest.rpm
 
 
 
@@ -195,7 +195,7 @@ echo
 
 #Install the package on test machines
 echo "Installing a newly built package on this system:"
-rpm -ivh http://repo.grid.iu.edu/osg/3.3/osg-3.3-el7-release-latest.rpm
+rpm -ivh http://repo.opensciencegrid.org/osg/3.3/osg-3.3-el7-release-latest.rpm
 echo
 
 #Check an installed RPM Package
@@ -204,7 +204,7 @@ rpm -q osg-release-3.3-*.osg33.el7.noarch
 echo 
 
 #Upgrade a RPM Package
-rpm -Uvh http://repo.grid.iu.edu/osg/3.3/osg-3.3-el7-release-latest.rpm
+rpm -Uvh http://repo.opensciencegrid.org/osg/3.3/osg-3.3-el7-release-latest.rpm
 
 
 
