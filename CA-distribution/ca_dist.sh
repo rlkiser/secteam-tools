@@ -550,7 +550,7 @@ else
 fi
 
 #Install OSG repositories (command only for RHEL 7, CentOS 7, and SL 7)
-rpm -Uvh https://repo.grid.iu.edu/osg/3.3/osg-3.3-el7-release-latest.rpm
+rpm -Uvh https://repo.opensciencegrid.org/osg/3.3/osg-3.3-el7-release-latest.rpm
 
 #Check out the package source from subversion
 svn co https://vdt.cs.wisc.edu/svn/native/redhat 
