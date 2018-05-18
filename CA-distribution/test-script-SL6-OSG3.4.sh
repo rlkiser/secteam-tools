@@ -59,7 +59,7 @@ yum -y install 'perl(IO::Socket::SSL)'
 
 #Upgrade the packages
 rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
-rpm -Uvh https://repo.grid.iu.edu/osg/3.4/osg-3.4-el6-release-latest.rpm
+rpm -Uvh https://repo.opensciencegrid.org/osg/3.4/osg-3.4-el6-release-latest.rpm
 
 
 
@@ -197,7 +197,7 @@ echo
 
 #Install the package on test machines
 echo "Installing a newly built package on this system:"
-rpm -ivh http://repo.grid.iu.edu/osg/3.4/osg-3.4-el6-release-latest.rpm
+rpm -ivh http://repo.opensciencegrid.org/osg/3.4/osg-3.4-el6-release-latest.rpm
 echo 
 
 #Check an installed RPM Package
@@ -206,7 +206,7 @@ rpm -q osg-release-3.4-*.osg34.el6.noarch
 echo 
 
 #Upgrade a RPM Package
-rpm -Uvh http://repo.grid.iu.edu/osg/3.4/osg-3.4-el6-release-latest.rpm
+rpm -Uvh http://repo.opensciencegrid.org/osg/3.4/osg-3.4-el6-release-latest.rpm
 
 
 
