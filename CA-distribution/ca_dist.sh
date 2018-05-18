@@ -350,7 +350,21 @@ svn update
 export CABASEDIR=`pwd`
 
 #Set the OSG certificates distribution version
-export OUR_CERTS_VERSION=${MMM}NEW
+echo "Enter our OSG cert version i.e. n.xNEW:"
+read OUR_CERTS_VERSION
+if [[ $OUR_CERTS_VERSION =~ ^[0-9]+[.][0-9]+(NEW)$ ]];
+then
+    export OUR_CERTS_VERSION
+else
+    echo "Please enter a valid our OSG cert version i.e. n.xNEW."
+    exit
+fi
+
+#Set the variable m.mm
+export MMM=$(echo "$OUR_CERTS_VERSION" | grep -o -E '[0-9]+\.[0-9]+')
+
+#Set the previous version of OUR_CERTS_VERSION for OSG
+export PREVIOUS_NEW=`echo "$MMM - 0.01" | bc -l`NEW
 
 #Create a new distribution directory for the release
 cd $CABASEDIR
