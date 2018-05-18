@@ -69,14 +69,11 @@ fi
 #Set the variable n.nn
 export NNN=$IGTF_CERTS_VERSION
 
-#Set the variable m.mm
-export MMM=$(echo "$OUR_CERTS_VERSION" | grep -o -E '[0-9]+\.[0-9]+')
+#Set the variable l.ll
+export LLL=$(echo "$OUR_CERTS_VERSION" | grep -o -E '[0-9]+\.[0-9]+')
 
 #Set the previous version of OUR_CERTS_VERSION for IGTF
-export PREVIOUS_IGTFNEW=`echo "$MMM - 0.01" | bc -l`IGTFNEW
-
-#Set the previous version of OUR_CERTS_VERSION for OSG
-export PREVIOUS_NEW=`echo "$MMM - 0.01" | bc -l`NEW
+export PREVIOUS_IGTFNEW=`echo "$LLL - 0.01" | bc -l`IGTFNEW
 #--------------------Variable declaration completed--------------------
 
 
@@ -549,7 +546,7 @@ ssh "${USERNAME_VDT}@library.cs.wisc.edu" "mkdir /p/vdt/public/html/upstream/osg
 #Run following command in the same terminal where you did all the previous steps
 cd "$SVNDIR"
 scp osg-certificates-${MMM}NEW.tar.gz "${USERNAME_VDT}@library.cs.wisc.edu:/p/vdt/public/html/upstream/osg-ca-certs/$MMM/"
-scp osg-certificates-${MMM}IGTF*.tar.gz "${USERNAME_VDT}@library.cs.wisc.edu:/p/vdt/public/html/upstream/igtf-ca-certs/$NNN/"
+scp osg-certificates-${LLL}IGTF*.tar.gz "${USERNAME_VDT}@library.cs.wisc.edu:/p/vdt/public/html/upstream/igtf-ca-certs/$NNN/"
 
 #Do svn update  
 cd /root/redhat/trunk/; 
@@ -697,23 +694,23 @@ else
 fi
 
 #Verify MD5 and SHA256 hash of new IGTF tarballs
-cd /certs/trunk/cadist/CA-Certificates-Base/${MMM}IGTFNEW
+cd /certs/trunk/cadist/CA-Certificates-Base/${LLL}IGTFNEW
 
-MD5SUM_IGTFNEW=`md5sum osg-certificates-${MMM}IGTFNEW.tar.gz | awk '{print $1}'`
+MD5SUM_IGTFNEW=`md5sum osg-certificates-${LLL}IGTFNEW.tar.gz | awk '{print $1}'`
 if cat ca-certs-version | grep -q $MD5SUM_IGTFNEW;
 then
-    echo "MD5 hash for osg-certificates-${MMM}IGTFNEW.tar.gz is correct."
+    echo "MD5 hash for osg-certificates-${LLL}IGTFNEW.tar.gz is correct."
 else
-    echo "MD5 hash for osg-certificates-${MMM}IGTFNEW.tar.gz is incorrect."
+    echo "MD5 hash for osg-certificates-${LLL}IGTFNEW.tar.gz is incorrect."
     exit
 fi
 
-SHA256SUM_IGTFNEW=`sha256sum osg-certificates-${MMM}IGTFNEW.tar.gz | awk '{print $1}'`
+SHA256SUM_IGTFNEW=`sha256sum osg-certificates-${LLL}IGTFNEW.tar.gz | awk '{print $1}'`
 if cat ca-certs-version | grep -q $SHA256SUM_IGTFNEW;
 then
-    echo "SHA256 hash for osg-certificates-${MMM}IGTFNEW.tar.gz is correct."
+    echo "SHA256 hash for osg-certificates-${LLL}IGTFNEW.tar.gz is correct."
 else
-    echo "SHA256 hash for osg-certificates-${MMM}IGTFNEW.tar.gz is incorrect."
+    echo "SHA256 hash for osg-certificates-${LLL}IGTFNEW.tar.gz is incorrect."
     exit
 fi
 
