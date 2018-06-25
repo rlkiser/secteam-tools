@@ -221,7 +221,7 @@ then
     echo "$CADIST/INDEX.html[.txt] contains the right number of CAs."
 else
     echo "$CADIST/INDEX.html[.txt] doesn't contain the right number of CAs."
-    exit
+#[06/25/18]    exit
 fi
 
 #Make the MD5 checksums
@@ -418,7 +418,7 @@ then
     echo "$CADIST/INDEX.html[.txt] contains the right number of CAs."
 else
     echo "$CADIST/INDEX.html[.txt] doesn't contain the right number of CAs."
-    exit
+#[06/25/18]    exit
 fi
 
 #Make the MD5 checksums
