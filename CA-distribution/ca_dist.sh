@@ -666,7 +666,7 @@ svn log -l 5 trunk/osg-ca-certs
 #was a copy of osg-ca-certs before your update and 23622 was your update. So, the 
 #difference between 23622 and 23621 encompasses all the changes you made
 
-echo "Enter the latest version since the previous commit"
+echo "Enter the latest version number (e.g. 23622) since the previous commit"
 read LATESTCOMMIT
 
 cd /root/redhat/branches/osg-3.3/osg-ca-certs
