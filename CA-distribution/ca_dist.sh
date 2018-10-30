@@ -224,10 +224,11 @@ else
 #[06/25/18]    exit
 fi
 
+#[10/30/18] commenting out to remove MD5 sum
 #Make the MD5 checksums
-cd "$CABASEDIR/$OUR_CERTS_VERSION"
-( cd "$CADIST"; md5sum *.0 *.pem ) > cacerts_md5sum.txt
-cp cacerts_md5sum.txt "$CADIST"
+#cd "$CABASEDIR/$OUR_CERTS_VERSION"
+#( cd "$CADIST"; md5sum *.0 *.pem ) > cacerts_md5sum.txt
+#cp cacerts_md5sum.txt "$CADIST"
 
 #Make the SHA256 checksums
 cd "$CABASEDIR/$OUR_CERTS_VERSION"
@@ -322,14 +323,17 @@ cd "$CABASEDIR/$OUR_CERTS_VERSION"
 cp "osg-certificates-$OUR_CERTS_VERSION.tar.gz" "osg-certificates-$OUR_CERTS_VERSION.tar.gz.sig" "osg-ca-certs-$OUR_CERTS_VERSION-0.deb" "$SVNDIR"
 cp ca-certs-version "$SVNDIR/ca-certs-version-$OUR_CERTS_VERSION"
 cp ca-certs-version "$CADIST"
-cp cacerts_md5sum.txt "$SVNDIR/cacerts_md5sum-$OUR_CERTS_VERSION.txt"
+#[10/30/18] commenting out to remove MD5
+#cp cacerts_md5sum.txt "$SVNDIR/cacerts_md5sum-$OUR_CERTS_VERSION.txt"
 cp cacerts_sha256sum.txt "$SVNDIR/cacerts_sha256sum-$OUR_CERTS_VERSION.txt"
 
 #Change to the svn release directory
 cd "$SVNDIR"
 
 #Commit the files
-svn add "osg-certificates-$OUR_CERTS_VERSION.tar.gz" "osg-certificates-$OUR_CERTS_VERSION.tar.gz.sig" "osg-ca-certs-$OUR_CERTS_VERSION-0.deb" "ca-certs-version-$OUR_CERTS_VERSION" "cacerts_md5sum-$OUR_CERTS_VERSION.txt" "cacerts_sha256sum-$OUR_CERTS_VERSION.txt"
+#[10/30/18] commenting out to remove MD5
+#svn add "osg-certificates-$OUR_CERTS_VERSION.tar.gz" "osg-certificates-$OUR_CERTS_VERSION.tar.gz.sig" "osg-ca-certs-$OUR_CERTS_VERSION-0.deb" "ca-certs-version-$OUR_CERTS_VERSION" "cacerts_md5sum-$OUR_CERTS_VERSION.txt" "cacerts_sha256sum-$OUR_CERTS_VERSION.txt"
+svn add "osg-certificates-$OUR_CERTS_VERSION.tar.gz" "osg-certificates-$OUR_CERTS_VERSION.tar.gz.sig" "osg-ca-certs-$OUR_CERTS_VERSION-0.deb" "ca-certs-version-$OUR_CERTS_VERSION" "cacerts_sha256sum-$OUR_CERTS_VERSION.txt"
 svn commit -m "OSG certificates distribution $OUR_CERTS_VERSION"
 
 echo "Process for IGTFNEW is completed."
@@ -421,10 +425,11 @@ else
 #[06/25/18]    exit
 fi
 
+#[10/30/18] commenting out to remove MD5
 #Make the MD5 checksums
-cd $CABASEDIR/$OUR_CERTS_VERSION
-( cd $CADIST; md5sum *.0 *.pem ) > cacerts_md5sum.txt
-cp cacerts_md5sum.txt $CADIST
+#cd $CABASEDIR/$OUR_CERTS_VERSION
+#( cd $CADIST; md5sum *.0 *.pem ) > cacerts_md5sum.txt
+#cp cacerts_md5sum.txt $CADIST
 
 #Make the SHA256 checksums
 cd $CABASEDIR/$OUR_CERTS_VERSION
@@ -520,14 +525,17 @@ cd $CABASEDIR/$OUR_CERTS_VERSION
 cp osg-certificates-$OUR_CERTS_VERSION.tar.gz osg-certificates-$OUR_CERTS_VERSION.tar.gz.sig osg-ca-certs-$OUR_CERTS_VERSION-0.deb $SVNDIR
 cp ca-certs-version $SVNDIR/ca-certs-version-$OUR_CERTS_VERSION
 cp ca-certs-version $CADIST
-cp cacerts_md5sum.txt $SVNDIR/cacerts_md5sum-$OUR_CERTS_VERSION.txt
+#[10/30/18] commenting out to remove MD5
+#cp cacerts_md5sum.txt $SVNDIR/cacerts_md5sum-$OUR_CERTS_VERSION.txt
 cp cacerts_sha256sum.txt $SVNDIR/cacerts_sha256sum-$OUR_CERTS_VERSION.txt
 
 #Change to the svn release directory
 cd $SVNDIR
 
 #Commit the files
-svn add osg-certificates-$OUR_CERTS_VERSION.tar.gz osg-certificates-$OUR_CERTS_VERSION.tar.gz.sig osg-ca-certs-$OUR_CERTS_VERSION-0.deb ca-certs-version-$OUR_CERTS_VERSION cacerts_md5sum-$OUR_CERTS_VERSION.txt cacerts_sha256sum-$OUR_CERTS_VERSION.txt;
+#[10/30/18] commenting out to remove MD5
+#svn add osg-certificates-$OUR_CERTS_VERSION.tar.gz osg-certificates-$OUR_CERTS_VERSION.tar.gz.sig osg-ca-certs-$OUR_CERTS_VERSION-0.deb ca-certs-version-$OUR_CERTS_VERSION cacerts_md5sum-$OUR_CERTS_VERSION.txt cacerts_sha256sum-$OUR_CERTS_VERSION.txt;
+svn add osg-certificates-$OUR_CERTS_VERSION.tar.gz osg-certificates-$OUR_CERTS_VERSION.tar.gz.sig osg-ca-certs-$OUR_CERTS_VERSION-0.deb ca-certs-version-$OUR_CERTS_VERSION cacerts_sha256sum-$OUR_CERTS_VERSION.txt;
 svn commit -m "OSG certificates distribution $OUR_CERTS_VERSION"
 
 echo "Process for OSG CA i.e. NEW is completed."
@@ -689,18 +697,20 @@ svn commit -m "OSG certificates distribution $OUR_CERTS_VERSION. (Jira Ticket: $
 echo "Update the Jira ticket by mentioning that you have created the builds."
 
 
-
+#[10/30/18] commenting out to remove MD5 sum
 #Verify MD5 and SHA256 hash of new OSG tarballs
+#Verify SHA256 hash of new OSG tarballs
 cd /certs/trunk/cadist/CA-Certificates-Base/${MMM}NEW/
 
-MD5SUM_NEW=`md5sum osg-certificates-${MMM}NEW.tar.gz | awk '{print $1}'`
-if cat ca-certs-version | grep -q $MD5SUM_NEW;
-then
-    echo "MD5 hash for osg-certificates-${MMM}NEW.tar.gz is correct."
-else
-    echo "MD5 hash for osg-certificates-${MMM}NEW.tar.gz is incorrect."
-    exit
-fi
+#[10/30/18] commenting out to remove MD5 sum
+#MD5SUM_NEW=`md5sum osg-certificates-${MMM}NEW.tar.gz | awk '{print $1}'`
+#if cat ca-certs-version | grep -q $MD5SUM_NEW;
+#then
+#    echo "MD5 hash for osg-certificates-${MMM}NEW.tar.gz is correct."
+#else
+#    echo "MD5 hash for osg-certificates-${MMM}NEW.tar.gz is incorrect."
+#    exit
+#fi
 
 SHA256SUM_NEW=`sha256sum osg-certificates-${MMM}NEW.tar.gz | awk '{print $1}'`
 if cat ca-certs-version | grep -q $SHA256SUM_NEW;
@@ -711,17 +721,20 @@ else
     exit
 fi
 
+#[10/30/18] commenting out to remove MD5 sum
 #Verify MD5 and SHA256 hash of new IGTF tarballs
+#Verify SHA256 hash of new IGTF tarballs
 cd /certs/trunk/cadist/CA-Certificates-Base/${LLL}IGTFNEW
 
-MD5SUM_IGTFNEW=`md5sum osg-certificates-${LLL}IGTFNEW.tar.gz | awk '{print $1}'`
-if cat ca-certs-version | grep -q $MD5SUM_IGTFNEW;
-then
-    echo "MD5 hash for osg-certificates-${LLL}IGTFNEW.tar.gz is correct."
-else
-    echo "MD5 hash for osg-certificates-${LLL}IGTFNEW.tar.gz is incorrect."
-    exit
-fi
+#[10/30/18] commenting out to remove MD5 sum
+#MD5SUM_IGTFNEW=`md5sum osg-certificates-${LLL}IGTFNEW.tar.gz | awk '{print $1}'`
+#if cat ca-certs-version | grep -q $MD5SUM_IGTFNEW;
+#then
+#    echo "MD5 hash for osg-certificates-${LLL}IGTFNEW.tar.gz is correct."
+#else
+#    echo "MD5 hash for osg-certificates-${LLL}IGTFNEW.tar.gz is incorrect."
+#    exit
+#fi
 
 SHA256SUM_IGTFNEW=`sha256sum osg-certificates-${LLL}IGTFNEW.tar.gz | awk '{print $1}'`
 if cat ca-certs-version | grep -q $SHA256SUM_IGTFNEW;
