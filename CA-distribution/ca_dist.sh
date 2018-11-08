@@ -538,7 +538,7 @@ else
 fi
 
 #Install OSG repositories (command only for RHEL 7, CentOS 7, and SL 7)
-rpm -Uvh https://repo.opensciencegrid.org/osg/3.3/osg-3.3-el7-release-latest.rpm
+rpm -Uvh https://repo.opensciencegrid.org/osg/3.4/osg-3.4-el7-release-latest.rpm
 
 #Check out the package source from subversion
 svn co https://vdt.cs.wisc.edu/svn/native/redhat 
@@ -576,8 +576,9 @@ nano upstream/osg-certificates-NEW.source;
 
 #Create a test build on local environment and Koji
 osg-build rpmbuild .; 
+#[11/08/18] commenting out the following code to remove OSG 3.3
 #Step for branch 3.3: 
-osg-build --repo=3.3 rpmbuild .;
+#osg-build --repo=3.3 rpmbuild .;
 
 #Create a hidden directory with name ‘globus’
 mkdir /root/.globus
@@ -600,8 +601,9 @@ fi
 
 grid-proxy-init 
 osg-build --scratch koji .
+#[11/08/18] commenting out the following code to remove OSG 3.3
 #Step for branch 3.3: 
-osg-build --repo=3.3 --scratch koji .
+#osg-build --repo=3.3 --scratch koji .
 #--------------------
 
 #----------For igtf-ca-certs----------
@@ -617,12 +619,14 @@ nano upstream/osg-certificates-IGTFNEW.source;
 
 #Create a test build on local environment and Koji
 osg-build rpmbuild .;
+#[11/08/18] commenting out the following code to remove OSG 3.3
 #Step for branch 3.3:
-osg-build --repo=3.3 rpmbuild .;
+#osg-build --repo=3.3 rpmbuild .;
 
 osg-build --scratch koji .
-#Step for branch 3.3: 
-osg-build --repo=3.3 --scratch koji .
+#[11/08/18] commenting out the following code to remove OSG 3.3
+#Step for branch 3.3:
+#osg-build --repo=3.3 --scratch koji .
 #--------------------
 
 #Check in the changes to SVN 
@@ -636,38 +640,39 @@ osg-build koji --el7 osg-ca-certs
 osg-build koji --el6 igtf-ca-certs
 osg-build koji --el7 igtf-ca-certs
 
+#[11/08/18] commenting out the following code to remove OSG 3.3
 #----------Steps for branch-osg 3.3--------------
-echo "Performing the steps for OSG repo 3.3"
+#echo "Performing the steps for OSG repo 3.3"
 
-cd /root/redhat/branches
-svn up .
-cd /root/redhat
-svn up trunk/osg-ca-certs
-svn up trunk/igtf-ca-certs
+#cd /root/redhat/branches
+#svn up .
+#cd /root/redhat
+#svn up trunk/osg-ca-certs
+#svn up trunk/igtf-ca-certs
 
 #Find your latest commit revision number:
-svn log -l 5 trunk/osg-ca-certs
+#svn log -l 5 trunk/osg-ca-certs
 
 #Find the latest revision number and get all the differences between it and the previous one in the SVN.
-#Purpose: to find the difference in `trunk/osg-ca-certs` before and after your change 
+#Purpose: to find the difference in `trunk/osg-ca-certs` before and after your change
 #and merge that change into `branches/osg-3.3/osg-ca-certs` For example, revision 23621
-#was a copy of osg-ca-certs before your update and 23622 was your update. So, the 
+#was a copy of osg-ca-certs before your update and 23622 was your update. So, the
 #difference between 23622 and 23621 encompasses all the changes you made
 
-echo "Enter the latest version number (e.g. 23622) since the previous commit"
-read LATESTCOMMIT
+#echo "Enter the latest version number (e.g. 23622) since the previous commit"
+#read LATESTCOMMIT
 
-cd /root/redhat/branches/osg-3.3/osg-ca-certs
-svn merge -c "${LATESTCOMMIT}" ../../../trunk/osg-ca-certs .
-cd /root/redhat/branches/osg-3.3/igtf-ca-certs
-svn merge -c "${LATESTCOMMIT}" ../../../trunk/igtf-ca-certs .
+#cd /root/redhat/branches/osg-3.3/osg-ca-certs
+#svn merge -c "${LATESTCOMMIT}" ../../../trunk/osg-ca-certs .
+#cd /root/redhat/branches/osg-3.3/igtf-ca-certs
+#svn merge -c "${LATESTCOMMIT}" ../../../trunk/igtf-ca-certs .
 
-cd /root/redhat/branches/osg-3.3
-svn commit -m "Official builds-OSG certificates distribution $OUR_CERTS_VERSION. (Jira Ticket: $JIRA_TICKET)"
-osg-build koji --el6 --repo=3.3 osg-ca-certs
-osg-build koji --el7 --repo=3.3 osg-ca-certs
-osg-build koji --el6 --repo=3.3 igtf-ca-certs
-osg-build koji --el7 --repo=3.3 igtf-ca-certs
+#cd /root/redhat/branches/osg-3.3
+#svn commit -m "Official builds-OSG certificates distribution $OUR_CERTS_VERSION. (Jira Ticket: $JIRA_TICKET)"
+#osg-build koji --el6 --repo=3.3 osg-ca-certs
+#osg-build koji --el7 --repo=3.3 osg-ca-certs
+#osg-build koji --el6 --repo=3.3 igtf-ca-certs
+#osg-build koji --el7 --repo=3.3 igtf-ca-certs
 
 #----------Steps for branch-osg 3.3 are done--------------
 
@@ -703,7 +708,9 @@ fi
 
 #Test the new builds
 echo "Perform extensive testing." 
-echo "On the fresh SL6 & SL7 VMs, run test-script-SL6-OSG3.3, test-script-SL6-OSG3.4, test-script-SL7-OSG3.3 and test-script-SL7-OSG3.4 respectively."
+#[11/08/18] commenting out the following code to remove OSG 3.3
+#echo "On the fresh SL6 & SL7 VMs, run test-script-SL6-OSG3.3, test-script-SL6-OSG3.4, test-script-SL7-OSG3.3 and test-script-SL7-OSG3.4 respectively."
+echo "On the fresh SL6 & SL7 VMs, run test-script-SL6-OSG3.4 and test-script-SL7-OSG3.4 respectively."
 echo "Update the Jira ticket by mentioning that you are done with the testing."
 echo "Hit Enter once the testing is done."
 read VARIABLES
@@ -715,6 +722,7 @@ read VARIABLES
 cd /root/redhat/trunk/;
 grid-proxy-init
 osg-promote osg-ca-certs igtf-ca-certs
-osg-promote -r 3.3-testing osg-ca-certs igtf-ca-certs 
+[11/08/18] commenting out the following code to remove OSG 3.3
+#osg-promote -r 3.3-testing osg-ca-certs igtf-ca-certs
 echo "Update the Jira ticket and change the workflow from open/in progress -> Ready for Testing"
 
