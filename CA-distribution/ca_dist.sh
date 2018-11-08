@@ -722,7 +722,7 @@ read VARIABLES
 cd /root/redhat/trunk/;
 grid-proxy-init
 osg-promote osg-ca-certs igtf-ca-certs
-[11/08/18] commenting out the following code to remove OSG 3.3
+#[11/08/18] commenting out the following code to remove OSG 3.3
 #osg-promote -r 3.3-testing osg-ca-certs igtf-ca-certs
 echo "Update the Jira ticket and change the workflow from open/in progress -> Ready for Testing"
 
