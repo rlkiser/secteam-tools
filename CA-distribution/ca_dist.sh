@@ -85,29 +85,18 @@ yum -y install svn
 yum -y install rpm-build
 yum -y groups install "Development Tools"
 yum -y install ncurses-devel
+yum -y install perl
 
 #install dpkg-deb, fakeroot, dpkg-scanpackages, debsigs
-wget http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/f/fakeroot-1.18.4-2.el7.x86_64.rpm
+#12-4-18 Removed specific fakeroot version download and added dpkg tools from repos.
+#wget http://dl.fedoraproject.org/pub/epel/7/x86_64/Packages/f/fakeroot-1.18.4-2.el7.x86_64.rpm
 yum -y install epel-release
 yum -y install fakeroot
-svn co https://vdt.cs.wisc.edu/svn/certs/trunk/vdt-scripts/
-cp vdt-scripts/build-debian-tools builddebiantools.sh
-./builddebiantools.sh
-source ~/debian-build-tools/setup.sh
-#Verify that dpkg-deb, fakeroot, dpkg-scanpackages and debsigs are in your PATH
-which dpkg-deb fakeroot dpkg-scanpackages debsigs
-if [ $? -ne 0 ];
-then
-    echo "dpkg-deb, fakeroot, dpkg-scanpackages and debsigs are not in your PATH."
-    exit
-else
-    echo "dpkg-deb, fakeroot, dpkg-scanpackages and debsigs are in your PATH."
-fi
-
 yum -y install dpkg
-yum -y install perl
+yum -y install dpkg-dev.noarch
 yum -y install cpan
 yum -y install perl-LWP-Protocol-https
+
 #yum -y install 'perl(IO::Socket::SSL)'		#this is only for EL6
 yum -y install perl-Sys-Syslog
 cpan install Date::Parse
@@ -117,8 +106,103 @@ PATH=$PATH:$PWD/osg-build
 yum -y install fetch-crl
 yum -y install bc
 
+#12-10-18 This section is new. It is intended to replace the debsigs install process from the builddebiantools.sh script.
+
+debsigsversion="0.1.21"
+tarballname=debsigs_$debsigsversion.tar.xz
+
+echo 'fetching debsigs source'
+curl -sSLO http://ftp.de.debian.org/debian/pool/main/d/debsigs/$tarballname
+if [ $? -ne 0 ];
+then
+    echo "Download failed. Stopping."
+    exit
+else
+    echo "Download successful. Continuing."
+fi
+
+#check hash of downloaded file.
+knowngoodhash="85a24f170fd248b37ff979a381c23c2cfdee3cc6a69ebe92398241a14ccd6414"
+downloadhash=`sha256sum $tarballname | awk '{ print $1 }'`
+
+if [ "$downloadhash" != "$knowngoodhash" ];
+then
+    echo "Error: debsigs tarball SHA256 does not match expected value! File may have been changed or corrupted. Stopping."
+    echo "Download: $downloadhash"
+    echo "Expected: $knowngoodhash"
+    exit
+else
+    echo "SHA256 sum matches. Continuing."
+fi
+
+#Install from downloaded tarball.
+startDir="$HOME/CA-Dist/tmp/bin"
+libdir=$startDir
+
+mkdir -p $startDir
+#mkdir -p $libdir
+
+tar -xJf $tarballname -C $libdir --strip-components=1
+chmod u+x "$libdir/debsigs"
+
+#Add extracted directory to environment $PATH
+#export PERL5LIB=$PERL5LIB:$libdir
+export PATH=$PATH:$libdir
+
+#End of 12-10-18 edits
+
+#12-4-18 Removed use of builddebiantools.sh as it is currently broken.
+# Note: debsigs is the *ONLY* dependency not available in EPEL repos.
+#svn co https://vdt.cs.wisc.edu/svn/certs/trunk/vdt-scripts/
+#cp vdt-scripts/build-debian-tools builddebiantools.sh
+#./builddebiantools.sh
+#source ~/debian-build-tools/setup.sh
+
+#12-10-18 created individual tests for dependencies which frequently cause problems.
+#Verify that dpkg-deb is in $PATH
+which dpkg-deb
+if [ $? -ne 0 ];
+then
+    echo "dpkg-deb not found. Stopping."
+    exit
+else
+    echo "dpkg-deb found. Continuing."
+fi
+
+#Verify that fakeroot is in $PATH
+which fakeroot
+if [ $? -ne 0 ];
+then
+    echo "fakeroot not found. Stopping."
+    exit
+else
+    echo "fakeroot found. Continuing."
+fi
+
+#Verify that dpkg-scanpackages is in $PATH
+which dpkg-scanpackages
+if [ $? -ne 0 ];
+then
+    echo "dpkg-scanpackages not found. Stopping."
+    exit
+else
+    echo "dpkg-scanpackages found. Continuing."
+fi
+
+#Verify that debsigs is in $PATH
+which debsigs
+if [ $? -ne 0 ];
+then
+    echo "debsigs not found. Stopping."
+    exit
+else
+    echo "debsigs found. Continuing."
+fi
+
 echo "Dependencies are installed"
+
 #--------------------Installation completed--------------------
+
 
 
 
